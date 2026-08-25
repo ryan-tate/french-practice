@@ -162,6 +162,8 @@
     .opt[data-aux="avoir"] .big{color:var(--avoir)}
     .opt[data-aux="être"] .big{color:var(--etre)}
     .opt:hover:not(:disabled){border-color:var(--ink-faint)}
+    .opt[data-knew="1"] .big{color:var(--juste)}
+    .opt[data-knew="0"] .big{color:var(--faux)}
     .opt[data-pick="right"]{background:var(--juste-wash); border-color:var(--juste)}
     .opt[data-pick="wrong"]{background:var(--faux-wash); border-color:var(--faux)}
     .opt:disabled{cursor:default}
@@ -243,6 +245,12 @@
       <button class="chip" data-mode="pp" aria-pressed="false">Participe</button>
       <button class="chip" data-mode="aux" aria-pressed="false">Auxiliaire</button>
       <button class="chip" data-mode="full" aria-pressed="false">Forme complète</button>
+    </div>
+    <div class="row">
+      <span class="rowlab">Format</span>
+      <button class="chip" data-fmt="write" aria-pressed="true">&Eacute;crire</button>
+      <button class="chip" data-fmt="card" aria-pressed="false">Cartes</button>
+      <span class="hint" id="fmthint"></span>
     </div>
     <div class="row">
       <span class="rowlab">Verbes</span>
@@ -469,7 +477,7 @@
   }
 
   /* ---------- state ---------- */
-  let cur = null, answered = false;
+  let cur = null, answered = false, flipped = false, fmt = "write";
   let sess = {right:0, total:0, streak:0};
   const $ = function(id){ return document.getElementById(id); };
 
@@ -483,7 +491,7 @@
 
   /* ---------- render ---------- */
   function next(){
-    cur = null; answered = false;
+    cur = null; answered = false; flipped = false;
     const v = pick(), type = pickType(), subj = SUBJ[Math.floor(Math.random()*SUBJ.length)];
     cur = {v:v, type:type, subj:subj, neg:pickNeg(type)};
     last = v.inf;
@@ -521,7 +529,12 @@
     const card = $("card");
     card.classList.remove("anim"); void card.offsetWidth; card.classList.add("anim");
 
-    if(zone.querySelector("#in")){
+    if(fmt === "card"){
+      $("ask").textContent = CARD_ASK[type];
+      zone.innerHTML = '<div class="row"><button class="btn" id="flip">Retourner &nbsp;&#9251;</button></div>';
+      $("flip").addEventListener("click", reveal);
+      $("flip").focus();   /* so Space/Enter flip natively, and focus leaves the chip just clicked */
+    } else if(zone.querySelector("#in")){
       $("in").focus();
       $("go").onclick = submit;
       $("in").onkeydown = function(e){ if(e.key === "Enter") submit(); };
@@ -536,6 +549,54 @@
     const v = cur.v;
     if(cur.type === "full") return fullForms(v, cur.subj, cur.neg).show;
     return auxSpan(v) + " " + v.pp;
+  }
+
+  const CARD_ASK = {
+    pp:   "Rappelle-toi le participe, puis retourne la carte.",
+    aux:  "Avoir ou être ? Décide, puis retourne la carte.",
+    full: "Dis la phrase entière dans ta tête, puis retourne la carte."
+  };
+
+  /* Flashcards are self-graded, so they feed the per-verb review weighting but never
+     store.n / store.c / store.best — mixing self-reported accuracy into the graded
+     score would make the bilan percentage mean nothing. */
+  function reveal(){
+    if(flipped || answered || fmt !== "card") return;
+    flipped = true;
+    $("fb").innerHTML =
+      '<div class="fb anim"><div class="verdict"><span class="sol">' + solutionHTML() + '</span></div>' +
+      '<div class="opts">' +
+      '<button class="opt" data-knew="1"><span class="big">Je savais</span><span class="key">touche J</span></button>' +
+      '<button class="opt" data-knew="0"><span class="big">&Agrave; revoir</span><span class="key">touche R</span></button>' +
+      '</div></div>';
+    Array.prototype.forEach.call($("fb").querySelectorAll(".opt"), function(b){
+      b.addEventListener("click", function(){ selfGrade(b.dataset.knew === "1", b); });
+    });
+    const first = $("fb").querySelector('.opt[data-knew="1"]');
+    if(first) first.focus();
+  }
+  function selfGrade(knew, btn){
+    if(answered || !flipped) return;
+    answered = true;
+    const v = cur.v, s = stat(v.inf);
+    s.seen++; sess.total++;
+    if(knew){
+      sess.right++; sess.streak++;
+      if(s.miss > 0) s.miss = Math.max(0, s.miss - 0.5);
+    } else {
+      sess.streak = 0;
+      s.miss += 1;
+    }
+    save(); paintScore(); paintReview();
+    $("card").dataset.state = knew ? "juste" : "faux";
+    Array.prototype.forEach.call($("fb").querySelectorAll(".opt"), function(b){
+      b.disabled = true;
+      if(b === btn) b.dataset.pick = knew ? "right" : "wrong";
+    });
+    $("fb").insertAdjacentHTML("beforeend",
+      '<div class="row" style="margin-top:12px"><button class="btn ghost" id="nx">Suivant &nbsp;&#8629;</button></div>');
+    $("nx").addEventListener("click", next);
+    $("nx").focus();
   }
 
   function grade(input, btn){
@@ -643,6 +704,12 @@
     $("neghint").textContent = locked ? "Negatives need the whole verb phrase, so the exercise is locked to Forme complète." : "";
   }
   wire("data-mode", function(x){ mode = x; });
+  wire("data-fmt", function(x){
+    fmt = x;
+    $("fmthint").textContent = x === "card"
+      ? "Les cartes nourrissent les révisions, mais pas le score ni le bilan — tu te notes toi-même."
+      : "";
+  });
   wire("data-scope", function(x){ scope = x; });
   wire("data-neg", function(x){ neg = x; });
 
@@ -651,7 +718,20 @@
     save(); paintScore(); paintReview(); next();
   };
   document.addEventListener("keydown", function(e){
-    if(cur && cur.type === "aux" && !answered && !e.metaKey && !e.ctrlKey && !e.altKey){
+    if(fmt === "card" && cur && !e.metaKey && !e.ctrlKey && !e.altKey){
+      const isSpace = e.key === " " || e.key === "Spacebar" || e.code === "Space" || e.keyCode === 32;
+      if(!flipped && (isSpace || e.key === "Enter")){
+        /* a focused button handles its own activation; don't fire twice */
+        if(e.target && e.target.tagName === "BUTTON") return;
+        e.preventDefault(); reveal(); return;
+      }
+      if(flipped && !answered){
+        const c = e.key.toLowerCase();
+        if(c === "j"){ e.preventDefault(); selfGrade(true, $("fb").querySelector('.opt[data-knew="1"]')); return; }
+        if(c === "r"){ e.preventDefault(); selfGrade(false, $("fb").querySelector('.opt[data-knew="0"]')); return; }
+      }
+    }
+    if(fmt === "write" && cur && cur.type === "aux" && !answered && !e.metaKey && !e.ctrlKey && !e.altKey){
       const k = e.key.toLowerCase();
       if(k === "a" || k === "e"){
         e.preventDefault();
