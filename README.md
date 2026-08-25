@@ -109,9 +109,11 @@ The payload is deliberately tiny — roughly 100 characters for both drills — 
 the student sends; GitHub never sees them, and `/bilan/` stores nothing when it renders them.
 
 Format: `1~pc<best>.<answered>.<correct>.<70 chars>~nb<best>.<answered>.<correct>.<10 chars>`.
-Counts are base-36; each miss count is one base-32 character holding `round(miss * 2)`, capped at
-31, in the fixed key order defined by `PC_ORDER` / `NB_ORDER`. Adding a verb or a rule means
-bumping the leading version number so old links still fail cleanly rather than decoding wrong.
+Counts are base-36 and each miss count is one base-32 character holding `round(miss * 2)`, capped
+at 31, in the fixed key order defined by `PC_ORDER` / `NB_ORDER`. `<correct>` is stored as
+*correct + 1* so that `0` can mean "not recorded" — progress saved before the counters existed
+still exports its misses, and the report simply omits the score line. Adding a verb or a rule
+means bumping the leading version number so old links fail cleanly rather than decoding wrong.
 
 Nothing is authenticated — anyone can hand-edit a payload. It's a "here's what I'm struggling
 with" artifact, not a grade.
