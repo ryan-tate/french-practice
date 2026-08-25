@@ -175,6 +175,13 @@ Minimum bar for any change to answer-checking:
 - More reflexive verbs added to the passé composé drill rather than a separate reflexives page —
   the existing drill already covers six with agreement.
 
+## Licence
+
+MIT (`LICENSE`, added 2026-08-24). Every page carries the notice in an HTML comment at the top so
+saved copies stay compliant — keep it when adding a page. The grant does **not** cover the Vuigner
+verb list; that stays credited, not licensed, and any new third-party source must be handled the
+same way.
+
 ## Source
 
 Passé composé verb list from *Le passé composé · participes passés* by Marine Vuigner, FLE

@@ -203,6 +203,17 @@ to `<username>.github.io`. The `CNAME` file in the repo root is written by GitHu
 custom domain is set — don't delete it. Enable **Enforce HTTPS** once the certificate finishes
 provisioning, which can take up to 24 hours after DNS resolves.
 
+## Licence
+
+MIT — see [`LICENSE`](LICENSE). Use it, fork it, adapt a drill for your own class; the only
+condition is that the copyright and permission notice travel with it. Each page carries that
+notice in an HTML comment at the top, so a saved copy stays compliant on its own.
+
+**One exception, and it matters.** The passé composé verb list comes from *Le passé composé ·
+participes passés* by Marine Vuigner (FLE Nantes). That is her material, not mine, so the MIT
+grant does not extend to it — it is credited, not licensed. Everything else (the code, the number
+and interrogative drills, the prose) is covered.
+
 ## Credits
 
 Verb list for the passé composé drill from *Le passé composé · participes passés* by
