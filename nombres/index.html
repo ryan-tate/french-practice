@@ -517,56 +517,83 @@
   function bQ(v){ return B32[Math.max(0, Math.min(31, Math.round((v||0)*2)))]; }
   function b36(n){ return Math.max(0, Math.round(n||0)).toString(36); }
 
+  /* `c` is stored as correct+1 so that 0 can mean "not recorded" — stats saved before
+     the counters existed still export their misses, just without a score line. */
+  function bLoad(key, keys, missOf){
+    const s = bRead(key); if(!s) return null;
+    let n = s.n, c = s.c;
+    if(typeof n !== "number"){
+      n = 0; keys.forEach(k => { n += ((((s.stats||{})[k])||{}).seen) || 0; });
+      c = null;
+    }
+    const miss = {}; let any = false;
+    keys.forEach(k => { const v = missOf(s, k) || 0; if(v > 0){ miss[k] = v; any = true; } });
+    if(!n && !any) return null;
+    return {best: s.best || 0, n: n, c: (typeof c === "number" ? c : null), miss: miss};
+  }
+  function bPc(){ return bLoad(PC_KEY, PC_ORDER, (s,k) => (((s.stats||{})[k])||{}).miss); }
+  function bNb(){ return bLoad(NB_KEY, NB_ORDER, (s,k) => (s.miss||{})[k]); }
+
+  function bEnc(tag, r, keys){
+    return tag + b36(r.best) + "." + b36(r.n) + "." + b36(r.c === null ? 0 : r.c + 1) + "." +
+            keys.map(k => bQ(r.miss[k])).join("");
+  }
   function bPayload(){
-    const out = [], pc = bRead(PC_KEY), nb = bRead(NB_KEY);
-    if(pc && pc.n > 0) out.push("pc" + b36(pc.best) + "." + b36(pc.n) + "." + b36(pc.c) + "." +
-            PC_ORDER.map(k => bQ((((pc.stats||{})[k])||{}).miss)).join(""));
-    if(nb && nb.n > 0) out.push("nb" + b36(nb.best) + "." + b36(nb.n) + "." + b36(nb.c) + "." +
-            NB_ORDER.map(k => bQ((nb.miss||{})[k])).join(""));
+    const out = [], pc = bPc(), nb = bNb();
+    if(pc) out.push(bEnc("pc", pc, PC_ORDER));
+    if(nb) out.push(bEnc("nb", nb, NB_ORDER));
     return out.length ? "1~" + out.join("~") : "";
   }
+  function bScore(r){
+    const s = r.n + " question" + (r.n === 1 ? "" : "s");
+    return (r.c === null ? s : s + ", " + r.c + " justes (" + Math.round(100*r.c/Math.max(1,r.n)) + " %)")
+            + ", meilleure série " + r.best;
+  }
   function bSummary(){
-    const L = ["Bilan — french-practice.com"], pc = bRead(PC_KEY), nb = bRead(NB_KEY);
-    const pct = (c,n) => Math.round(100*(c||0)/n) + " %";
-    if(pc && pc.n > 0){
-      L.push("", "Passé composé : " + pc.n + " questions, " + (pc.c||0) + " justes (" + pct(pc.c,pc.n) +
-              "), meilleure série " + (pc.best||0));
-      const bad = PC_ORDER.filter(k => ((((pc.stats||{})[k])||{}).miss||0) > 0)
-              .sort((a,b) => pc.stats[b].miss - pc.stats[a].miss).slice(0,12);
-      L.push(bad.length ? "À revoir : " + bad.map(k => k + " (" + (Math.round(pc.stats[k].miss*10)/10) + ")").join(", ")
+    const L = ["Bilan — french-practice.com"], pc = bPc(), nb = bNb();
+    if(pc){
+      L.push("", "Passé composé : " + bScore(pc));
+      const bad = Object.keys(pc.miss).sort((a,b) => pc.miss[b] - pc.miss[a]).slice(0,12);
+      L.push(bad.length ? "À revoir : " + bad.map(k => k + " (" + (Math.round(pc.miss[k]*10)/10) + ")").join(", ")
               : "Rien à revoir.");
     }
-    if(nb && nb.n > 0){
-      L.push("", "Les nombres : " + nb.n + " questions, " + (nb.c||0) + " justes (" + pct(nb.c,nb.n) +
-              "), meilleure série " + (nb.best||0));
-      const bad = NB_ORDER.filter(k => ((nb.miss||{})[k]||0) > 0).sort((a,b) => nb.miss[b] - nb.miss[a]);
+    if(nb){
+      L.push("", "Les nombres : " + bScore(nb));
+      const bad = Object.keys(nb.miss).sort((a,b) => nb.miss[b] - nb.miss[a]);
       L.push(bad.length ? "À revoir : " + bad.map(k => NB_LABEL[k] + " (" + (Math.round(nb.miss[k]*10)/10) + ")").join(", ")
               : "Rien à revoir.");
     }
     L.push("", "(Chiffres de ce navigateur uniquement.)");
     return L.join("\n");
   }
-  function bMsg(t){ const e = document.getElementById("bmsg"); e.textContent = t; clearTimeout(bMsg.t);
-    bMsg.t = setTimeout(() => { if(e.textContent === t) e.textContent = ""; }, 5000); }
-  function bCopy(text, ok){
-    if(navigator.clipboard && window.isSecureContext){
-      navigator.clipboard.writeText(text).then(() => bMsg(ok)).catch(() => bManual(text));
-    } else bManual(text);
+  function bMsg(t){
+    const e = document.getElementById("bmsg");
+    e.textContent = t; clearTimeout(bMsg.t);
+    bMsg.t = setTimeout(() => { if(e.textContent === t) e.textContent = ""; }, 6000);
   }
-  function bManual(text){
+  function bManual(text, why){
     const ta = document.getElementById("bfall");
     ta.hidden = false; ta.value = text; ta.focus(); ta.select();
-    bMsg("Copie automatique indisponible ici — sélectionne le texte ci-dessous.");
+    bMsg(why + " Sélectionne le texte ci-dessous et copie-le à la main.");
   }
-  document.getElementById("bshare").onclick = function(){
+  function bCopy(text, ok){
+    document.getElementById("bfall").hidden = true;
+    if(navigator.clipboard && window.isSecureContext){
+      navigator.clipboard.writeText(text).then(() => bMsg(ok),
+              () => bManual(text, "Le navigateur a refusé la copie automatique."));
+    } else {
+      bManual(text, "La copie automatique demande une page en https.");
+    }
+  }
+  document.getElementById("bshare").addEventListener("click", function(){
     const p = bPayload();
     if(!p) return bMsg("Rien à partager pour l'instant — réponds à quelques questions d'abord.");
     bCopy(BILAN_URL + "#" + p, "Lien copié. Colle-le dans un message à ton prof.");
-  };
-  document.getElementById("bcopy").onclick = function(){
+  });
+  document.getElementById("bcopy").addEventListener("click", function(){
     if(!bPayload()) return bMsg("Rien à partager pour l'instant — réponds à quelques questions d'abord.");
     bCopy(bSummary(), "Résumé copié.");
-  };
+  });
 
 </script>
 </body>

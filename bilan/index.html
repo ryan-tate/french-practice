@@ -225,7 +225,8 @@
         for(const p of parts){
             const tag = p.slice(0,2), rest = p.slice(2).split(".");
             if(rest.length !== 4) throw new Error("shape");
-            const rec = {best:n36(rest[0]), n:n36(rest[1]), c:n36(rest[2]), miss:{}};
+            const cr = n36(rest[2]);
+            const rec = {best:n36(rest[0]), n:n36(rest[1]), c: cr === 0 ? null : cr - 1, miss:{}};
             const keys = tag === "pc" ? PC_ORDER : NB_ORDER;
             if(rest[3].length !== keys.length) throw new Error("length");
             keys.forEach((k,i) => { const v = dq(rest[3][i]); if(v > 0) rec.miss[k] = v; });
@@ -235,9 +236,10 @@
         return out;
     }
     function statLine(r){
-        const pct = r.n ? Math.round(100*r.c/r.n) : 0;
-        return '<div class="rstats"><b>' + r.n + '</b> questions &nbsp;·&nbsp; <b>' + r.c + '</b> justes ('
-            + pct + '&nbsp;%) &nbsp;·&nbsp; meilleure s&eacute;rie <b>' + r.best + '</b></div>';
+        const bits = ['<b>' + r.n + '</b> question' + (r.n === 1 ? "" : "s")];
+        if(r.c !== null) bits.push('<b>' + r.c + '</b> justes (' + Math.round(100*r.c/Math.max(1,r.n)) + '&nbsp;%)');
+        bits.push('meilleure s&eacute;rie <b>' + r.best + '</b>');
+        return '<div class="rstats">' + bits.join(' &nbsp;·&nbsp; ') + '</div>';
     }
     function table(head, rows){
         return '<div class="tablewrap"><table><thead><tr>' + head.map(h => "<th>"+h+"</th>").join("") +
