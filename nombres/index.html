@@ -3,65 +3,122 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Les Nombres</title>
-<meta name="description" content="Self-scoring French number drill: figures to words and words to figures, including the 70-99 zone, years, prices and phone numbers.">
+<title>French Practice</title>
+<meta name="description" content="Free, self-scoring French grammar drills. Nothing tracked, nothing to sign up for.">
 <meta name="color-scheme" content="light dark">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%94%A2%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%87%AB%F0%9F%87%B7%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,600;6..96,700&family=IBM+Plex+Mono:wght@400;500;600&family=Libre+Franklin:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,600&family=IBM+Plex+Mono:wght@400;500&family=Libre+Franklin:wght@400;500;600&display=swap">
 <style>
-
 :root{
   --paper:#EFEEE9; --card:#FBFAF7; --ink:#171B24; --ink-soft:#5B6070; --ink-faint:#8C8F9C;
   --rule:#D8D6CE; --rule-soft:#E5E3DC;
-  --avoir:#3B4A8C; --avoir-wash:#E4E5F1;
-  --etre:#A5661C; --etre-wash:#F3E6D5;
-  --juste:#2E6B4A; --juste-wash:#E0EDE5;
-  --faux:#A93B2C; --faux-wash:#F5E3DF;
-  --presque:#8A6A12; --presque-wash:#F3EBD6;
+  --avoir:#3B4A8C; --etre:#A5661C;
   --shadow:0 1px 0 rgba(23,27,36,.05), 0 12px 30px -18px rgba(23,27,36,.35);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --paper:#13151B; --card:#1B1E27; --ink:#E9E7E1; --ink-soft:#A2A6B4; --ink-faint:#767A88;
     --rule:#2E323D; --rule-soft:#252932;
-    --avoir:#98A4EA; --avoir-wash:#242A45;
-    --etre:#E0A85E; --etre-wash:#3A2E1C;
-    --juste:#6FC095; --juste-wash:#1C3128;
-    --faux:#E5877B; --faux-wash:#3A2320;
-    --presque:#D8B75C; --presque-wash:#332C18;
+    --avoir:#98A4EA; --etre:#E0A85E;
     --shadow:0 1px 0 rgba(0,0,0,.3), 0 12px 30px -18px rgba(0,0,0,.8);
   }
 }
 :root[data-theme="dark"]{
   --paper:#13151B; --card:#1B1E27; --ink:#E9E7E1; --ink-soft:#A2A6B4; --ink-faint:#767A88;
   --rule:#2E323D; --rule-soft:#252932;
-  --avoir:#98A4EA; --avoir-wash:#242A45;
-  --etre:#E0A85E; --etre-wash:#3A2E1C;
-  --juste:#6FC095; --juste-wash:#1C3128;
-  --faux:#E5877B; --faux-wash:#3A2320;
-  --presque:#D8B75C; --presque-wash:#332C18;
+  --avoir:#98A4EA; --etre:#E0A85E;
   --shadow:0 1px 0 rgba(0,0,0,.3), 0 12px 30px -18px rgba(0,0,0,.8);
 }
 *{box-sizing:border-box}
-body{
-  margin:0; background:var(--paper); color:var(--ink);
+body{margin:0; background:var(--paper); color:var(--ink);
   font-family:"Libre Franklin",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased;
-}
-.wrap{max-width:700px; margin:0 auto; padding:40px 20px 72px; display:flex; flex-direction:column; gap:26px}
+  font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased}
+.wrap{max-width:700px; margin:0 auto; padding:56px 20px 72px; display:flex; flex-direction:column; gap:30px}
 
-/* ---- masthead ---- */
-.mast{display:flex; flex-direction:column; gap:8px; border-bottom:1px solid var(--rule); padding-bottom:18px}
+.mast{display:flex; flex-direction:column; gap:8px; border-bottom:1px solid var(--rule); padding-bottom:20px}
 .eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11px; letter-spacing:.16em;
   text-transform:uppercase; color:var(--ink-faint)}
-h1{font-family:"Bodoni Moda",Didot,Georgia,serif; font-weight:600; font-size:clamp(34px,7vw,50px);
-  line-height:1; margin:0; letter-spacing:-.01em; text-wrap:balance}
-h1 .acc{font-style:italic; font-weight:400}
-.sub{font-size:14px; color:var(--ink-soft); max-width:56ch}
-.sub b{color:var(--ink); font-weight:600}
+h1{font-family:"Bodoni Moda",Didot,Georgia,serif; font-weight:600; font-size:clamp(36px,7vw,54px);
+  line-height:1; margin:0; letter-spacing:-.01em}
+h1 em{font-style:italic; font-weight:400}
+.sub{font-size:15px; color:var(--ink-soft); max-width:58ch; margin:0}
 
+.list{display:flex; flex-direction:column; gap:14px}
+.drill{display:flex; flex-direction:column; gap:9px; padding:22px 24px; text-decoration:none; color:inherit;
+  background:var(--card); border:1px solid var(--rule); border-radius:3px; box-shadow:var(--shadow);
+  position:relative; overflow:hidden; transition:border-color .15s, transform .15s}
+.drill::before{content:""; position:absolute; inset:0 auto 0 0; width:3px;
+  background:linear-gradient(var(--avoir), var(--etre))}
+.drill:hover{border-color:var(--ink-faint); transform:translateY(-1px)}
+.drill:focus-visible{outline:2px solid var(--avoir); outline-offset:2px}
+.drill h2{font-family:"Bodoni Moda",Georgia,serif; font-size:26px; font-weight:600; line-height:1.15; margin:0}
+.drill p{margin:0; font-size:14.5px; color:var(--ink-soft); max-width:58ch}
+.tags{display:flex; flex-wrap:wrap; gap:6px}
+.tag{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink-faint); border:1px solid var(--rule); border-radius:99px; padding:2px 9px}
+.go{font-family:"IBM Plex Mono",monospace; font-size:12px; letter-spacing:.08em; color:var(--avoir); margin-top:2px}
+
+.note{font-size:13.5px; color:var(--ink-soft); border-left:2px solid var(--rule); padding-left:13px; max-width:60ch}
+.note b{color:var(--ink); font-weight:600}
+footer{font-size:12px; color:var(--ink-faint); border-top:1px solid var(--rule); padding-top:16px; line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="mast">
+    <div class="eyebrow">french-practice.com</div>
+    <h1>French <em>Practice</em></h1>
+    <p class="sub">Self-scoring grammar drills. Free, no sign-up, nothing tracked — your progress
+      stays in your own browser and is never sent anywhere.</p>
+  </header>
+
+  <div class="list">
+
+    <a class="drill" href="/passe-compose/">
+      <h2>Passé composé — participes passés</h2>
+      <div class="tags">
+        <span class="tag">70 verbes</span>
+        <span class="tag">3 exercices</span>
+        <span class="tag">affirmatif / négatif</span>
+      </div>
+      <p>Past participles, the avoir/être split, and full conjugated forms with agreement.
+        Accents are graded, and any verb you miss keeps coming back until you clear it.</p>
+      <div class="go">Commencer →</div>
+    </a>
+
+    <a class="drill" href="/nombres/">
+      <h2>Les nombres</h2>
+      <div class="tags">
+        <span class="tag">0 – 99 999</span>
+        <span class="tag">2 sens</span>
+        <span class="tag">années · prix · téléphone</span>
+      </div>
+      <p>Figures to words and words back to figures, with the 70–99 zone — <em>soixante et onze</em>,
+        <em>quatre-vingt-dix-sept</em> — as its own scope. Miss one and the rule behind it resurfaces,
+        not just that number.</p>
+      <div class="go">Commencer →</div>
+    </a>
+
+    <!-- To add a drill: copy the block above, change the href to its folder
+         (e.g. /imparfait/), and update the title, tags and description. -->
+
+  </div>
+
+  <p class="note"><b>How these work.</b> Each drill is a single HTML page that runs entirely in your
+    browser. You can use them offline, and you're welcome to save a page and keep it. More drills
+    will land here as they're built.</p>
+
+  <footer>
+    Verb list for the passé composé drill from <em>Le passé composé · participes passés</em>
+    by Marine Vuigner, FLE Nantes.
+  </footer>
+
+</div>
+</body>
+</html>
 /* ---- control rows ---- */
 .controls{display:flex; flex-direction:column; gap:10px}
 .row{display:flex; flex-wrap:wrap; align-items:center; gap:8px}
