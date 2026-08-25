@@ -13,8 +13,10 @@ no JavaScript bundle. Open one locally and it works exactly as it does on the si
 ├── README.md
 ├── passe-compose/
 │   └── index.html      Passé composé · participes passés
-└── nombres/
-    └── index.html      Les nombres
+├── nombres/
+│   └── index.html      Les nombres
+└── bilan/
+    └── index.html      renders a shared summary from the URL fragment
 ```
 
 Each drill lives in its own folder as `index.html`, so its URL has no file extension:
@@ -93,9 +95,31 @@ are 0–20, « et un », 20–69, 70–79, 80–99, centaines, milliers, années
 Belgian and Swiss *septante / octante / huitante / nonante* are noted in the page footer but
 not drilled.
 
+## Sharing a bilan
+
+Each drill has two export buttons under its review table:
+
+- **Copier le résumé** — a plain-text summary for pasting into an email or a message.
+- **Copier le lien du bilan** — a URL to `/bilan/#<payload>` that renders the results as a page.
+
+Both read `localStorage` for *all* drills, so one export covers everything that browser has done.
+
+The payload is deliberately tiny — roughly 100 characters for both drills — and sits in the URL
+**fragment**, which browsers never send to the server. The figures travel only inside the message
+the student sends; GitHub never sees them, and `/bilan/` stores nothing when it renders them.
+
+Format: `1~pc<best>.<answered>.<correct>.<70 chars>~nb<best>.<answered>.<correct>.<10 chars>`.
+Counts are base-36; each miss count is one base-32 character holding `round(miss * 2)`, capped at
+31, in the fixed key order defined by `PC_ORDER` / `NB_ORDER`. Adding a verb or a rule means
+bumping the leading version number so old links still fail cleanly rather than decoding wrong.
+
+Nothing is authenticated — anyone can hand-edit a payload. It's a "here's what I'm struggling
+with" artifact, not a grade.
+
 ## Privacy
 
-Progress is kept in the browser's `localStorage` and never leaves the device. No server, no
+Progress is kept in the browser's `localStorage`. It leaves the device only when the user clicks
+one of the export buttons, and then only into whatever message they paste it in. No server, no
 analytics, no cookies, no accounts. The only outbound request any page makes is to Google Fonts
 for the stylesheet; offline, the pages fall back to system fonts and still work. Each visitor's
 history is their own, and nobody — including whoever hosts the site — can see anyone else's.
@@ -121,10 +145,4 @@ provisioning, which can take up to 24 hours after DNS resolves.
 ## Credits
 
 Verb list for the passé composé drill from *Le passé composé · participes passés* by
-Marine Vuigner, FLE Nantes.and **retourner** are listed as *être* verbs, but take *avoir* whenever they have a direct
-object — *il **a** monté les escaliers*, *j'**ai** sorti les poubelles*.
-
-## Credits
-
-Verb list from *Le passé composé · participes passés* by Marine Vuigner, FLE Nantes.
-The drill itself is just a wrapper around her reference sheet.
+Marine Vuigner, FLE Nantes.

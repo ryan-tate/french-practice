@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Bilan</title>
+    <meta name="description" content="Renders a French Practice summary carried inside a shared link. Nothing is fetched or stored.">
+    <meta name="robots" content="noindex">
+    <meta name="color-scheme" content="light dark">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%87%AB%F0%9F%87%B7%3C/text%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,600&family=IBM+Plex+Mono:wght@400;500&family=Libre+Franklin:wght@400;500;600&display=swap">
+    <style>
+
+        :root{
+            --paper:#EFEEE9; --card:#FBFAF7; --ink:#171B24; --ink-soft:#5B6070; --ink-faint:#8C8F9C;
+            --rule:#D8D6CE; --rule-soft:#E5E3DC;
+            --avoir:#3B4A8C; --avoir-wash:#E4E5F1;
+            --etre:#A5661C; --etre-wash:#F3E6D5;
+            --juste:#2E6B4A; --juste-wash:#E0EDE5;
+            --faux:#A93B2C; --faux-wash:#F5E3DF;
+            --presque:#8A6A12; --presque-wash:#F3EBD6;
+            --shadow:0 1px 0 rgba(23,27,36,.05), 0 12px 30px -18px rgba(23,27,36,.35);
+        }
+        @media (prefers-color-scheme: dark){
+            :root:not([data-theme="light"]){
+                --paper:#13151B; --card:#1B1E27; --ink:#E9E7E1; --ink-soft:#A2A6B4; --ink-faint:#767A88;
+                --rule:#2E323D; --rule-soft:#252932;
+                --avoir:#98A4EA; --avoir-wash:#242A45;
+                --etre:#E0A85E; --etre-wash:#3A2E1C;
+                --juste:#6FC095; --juste-wash:#1C3128;
+                --faux:#E5877B; --faux-wash:#3A2320;
+                --presque:#D8B75C; --presque-wash:#332C18;
+                --shadow:0 1px 0 rgba(0,0,0,.3), 0 12px 30px -18px rgba(0,0,0,.8);
+            }
+        }
+        :root[data-theme="dark"]{
+            --paper:#13151B; --card:#1B1E27; --ink:#E9E7E1; --ink-soft:#A2A6B4; --ink-faint:#767A88;
+            --rule:#2E323D; --rule-soft:#252932;
+            --avoir:#98A4EA; --avoir-wash:#242A45;
+            --etre:#E0A85E; --etre-wash:#3A2E1C;
+            --juste:#6FC095; --juste-wash:#1C3128;
+            --faux:#E5877B; --faux-wash:#3A2320;
+            --presque:#D8B75C; --presque-wash:#332C18;
+            --shadow:0 1px 0 rgba(0,0,0,.3), 0 12px 30px -18px rgba(0,0,0,.8);
+        }
+        *{box-sizing:border-box}
+        body{
+            margin:0; background:var(--paper); color:var(--ink);
+            font-family:"Libre Franklin",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+            font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased;
+        }
+        .wrap{max-width:700px; margin:0 auto; padding:40px 20px 72px; display:flex; flex-direction:column; gap:26px}
+
+        /* ---- masthead ---- */
+        .mast{display:flex; flex-direction:column; gap:8px; border-bottom:1px solid var(--rule); padding-bottom:18px}
+        .eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11px; letter-spacing:.16em;
+            text-transform:uppercase; color:var(--ink-faint)}
+        h1{font-family:"Bodoni Moda",Didot,Georgia,serif; font-weight:600; font-size:clamp(34px,7vw,50px);
+            line-height:1; margin:0; letter-spacing:-.01em; text-wrap:balance}
+        h1 .acc{font-style:italic; font-weight:400}
+        .sub{font-size:14px; color:var(--ink-soft); max-width:56ch}
+        .sub b{color:var(--ink); font-weight:600}
+
+        /* ---- control rows ---- */
+        .controls{display:flex; flex-direction:column; gap:10px}
+        .row{display:flex; flex-wrap:wrap; align-items:center; gap:8px}
+        .rowlab{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.14em;
+            text-transform:uppercase; color:var(--ink-faint); width:62px; flex:none}
+        .chip{
+            font:inherit; font-size:13px; font-weight:500; color:var(--ink-soft);
+            background:transparent; border:1px solid var(--rule); border-radius:2px;
+            padding:5px 11px; cursor:pointer; transition:background .14s, color .14s, border-color .14s;
+        }
+        .chip:hover:not(:disabled){border-color:var(--ink-faint); color:var(--ink)}
+        .chip:disabled{opacity:.38; cursor:not-allowed}
+        .hint{font-size:12px; color:var(--ink-faint); font-style:italic}
+
+        .chip[aria-pressed="true"]{background:var(--ink); border-color:var(--ink); color:var(--paper)}
+        .chip:focus-visible,.opt:focus-visible,.btn:focus-visible,input:focus-visible{outline:2px solid var(--avoir); outline-offset:2px}
+
+        /* ---- scoreboard ---- */
+        .score{display:flex; align-items:stretch; border:1px solid var(--rule); border-radius:3px;
+            background:var(--card); box-shadow:var(--shadow); overflow:hidden}
+        .stat{flex:1; padding:11px 14px; display:flex; flex-direction:column; gap:1px; border-right:1px solid var(--rule-soft)}
+        .stat:last-child{border-right:none}
+        .stat .k{font-family:"IBM Plex Mono",monospace; font-size:9.5px; letter-spacing:.14em;
+            text-transform:uppercase; color:var(--ink-faint)}
+        .stat .v{font-family:"Bodoni Moda",Georgia,serif; font-size:24px; font-weight:600; line-height:1.1;
+            font-variant-numeric:tabular-nums}
+        .stat .v small{font-family:"IBM Plex Mono",monospace; font-size:12px; font-weight:400; color:var(--ink-faint)}
+
+        /* ---- question card ---- */
+        .card{min-height:340px; background:var(--card); border:1px solid var(--rule); border-radius:3px;
+            box-shadow:var(--shadow); padding:28px 26px 26px; display:flex; flex-direction:column; gap:18px;
+            position:relative; overflow:hidden}
+        .card::before{content:""; position:absolute; inset:0 auto 0 0; width:3px; background:var(--rule); transition:background .2s}
+        .card[data-state="juste"]::before{background:var(--juste)}
+        .card[data-state="faux"]::before{background:var(--faux)}
+        .card[data-state="presque"]::before{background:var(--presque)}
+        .qhead{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+        .qhead .spacer{flex:1}
+        .qtype{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.16em;
+            text-transform:uppercase; color:var(--ink-faint)}
+
+
+        .prompt{font-family:"Bodoni Moda",Didot,Georgia,serif; font-size:clamp(28px,6vw,40px);
+            line-height:1.12; font-weight:600; letter-spacing:-.01em; margin:0; text-wrap:balance}
+        .prompt .cue{color:var(--ink-faint); font-weight:400; font-style:italic}
+        .prompt .slot{color:var(--ink-faint); font-family:"IBM Plex Mono",monospace; font-size:.62em;
+            font-weight:400; letter-spacing:.04em; vertical-align:.08em}
+        .ask{font-size:13.5px; color:var(--ink-soft); margin:-8px 0 0}
+
+        /* answer input */
+        .answer{display:flex; gap:8px; flex-wrap:wrap}
+        input[type=text]{
+            flex:1 1 220px; min-width:0; font-family:"IBM Plex Mono",monospace; font-size:17px;
+            color:var(--ink); background:var(--paper); border:1px solid var(--rule); border-radius:2px;
+            padding:11px 13px;
+        }
+        input[type=text]::placeholder{color:var(--ink-faint)}
+        input[type=text]:disabled{opacity:.75}
+        .btn{font:inherit; font-size:14px; font-weight:600; padding:11px 20px; border-radius:2px; cursor:pointer;
+            background:var(--ink); color:var(--paper); border:1px solid var(--ink); transition:opacity .14s}
+        .btn:hover{opacity:.85}
+        .btn.ghost{background:transparent; color:var(--ink-soft); border-color:var(--rule)}
+        .btn.ghost:hover{color:var(--ink); border-color:var(--ink-faint)}
+
+        /* feedback */
+        .fb{display:flex; flex-direction:column; gap:9px; border-top:1px solid var(--rule-soft); padding-top:16px}
+        .verdict{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap}
+        .mark{font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:600; letter-spacing:.14em;
+            text-transform:uppercase; padding:3px 9px; border-radius:2px}
+        .mark[data-s="juste"]{color:var(--juste); background:var(--juste-wash)}
+        .mark[data-s="faux"]{color:var(--faux); background:var(--faux-wash)}
+        .mark[data-s="presque"]{color:var(--presque); background:var(--presque-wash)}
+        .sol{font-family:"IBM Plex Mono",monospace; font-size:18px; font-weight:500}
+        .yours{font-family:"IBM Plex Mono",monospace; font-size:13px; color:var(--ink-faint)}
+        .yours s{text-decoration-color:var(--faux)}
+        .note{font-size:13.5px; color:var(--ink-soft); border-left:2px solid var(--rule); padding-left:11px; max-width:62ch}
+        .note b{color:var(--ink); font-weight:600}
+
+        /* ---- review ---- */
+        .review{display:flex; flex-direction:column; gap:12px}
+        .review h2{font-family:"Bodoni Moda",Georgia,serif; font-size:20px; font-weight:600; margin:0}
+        .tablewrap{overflow-x:auto; border:1px solid var(--rule); border-radius:3px; background:var(--card)}
+        table{width:100%; border-collapse:collapse; font-size:14px}
+        th,td{text-align:left; padding:8px 12px; border-bottom:1px solid var(--rule-soft); white-space:nowrap}
+        th{font-family:"IBM Plex Mono",monospace; font-size:9.5px; letter-spacing:.13em; text-transform:uppercase;
+            color:var(--ink-faint); font-weight:500}
+        tr:last-child td{border-bottom:none}
+        td.inf{font-weight:600}
+        td.pp{font-family:"IBM Plex Mono",monospace}
+        td.ax{font-family:"IBM Plex Mono",monospace; font-size:12px}
+        td.n{font-family:"IBM Plex Mono",monospace; color:var(--faux); font-variant-numeric:tabular-nums}
+        .empty{padding:14px 12px; font-size:13.5px; color:var(--ink-faint)}
+        footer{font-size:12px; color:var(--ink-faint); border-top:1px solid var(--rule); padding-top:14px; line-height:1.6}
+        @keyframes rise{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
+        .anim{animation:rise .22s ease-out}
+        @media (prefers-reduced-motion:reduce){.anim{animation:none}}
+        @media (max-width:520px){ .rowlab{width:100%} .opts{grid-template-columns:1fr} }
+        /* ---- numbers-specific ---- */
+        .tagline{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.1em;
+            text-transform:uppercase; color:var(--ink-faint); border:1px solid var(--rule);
+            border-radius:99px; padding:2px 9px}
+        .tagline[data-trap="1"]{color:var(--etre); border-color:var(--etre)}
+        .digits{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums;
+            font-size:clamp(40px,10vw,64px); font-weight:500; letter-spacing:.01em; line-height:1.05; margin:0}
+        .digits .unit{font-size:.42em; color:var(--ink-faint); font-weight:400; margin-left:.18em}
+        .words{font-family:"Bodoni Moda",Didot,Georgia,serif; font-size:clamp(26px,5.4vw,38px);
+            font-weight:600; line-height:1.15; letter-spacing:-.01em; margin:0; text-wrap:balance}
+        .sol{font-family:"IBM Plex Mono",monospace; font-size:17px; font-weight:500; line-height:1.4}
+        .rulebadge{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.12em;
+            text-transform:uppercase; color:var(--ink-faint)}
+        td.rl{font-weight:600}
+        td.ex{font-family:"IBM Plex Mono",monospace; color:var(--ink-soft); font-size:13px}
+
+        .report{display:flex; flex-direction:column; gap:14px}
+        .rhead{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; border-bottom:1px solid var(--rule); padding-bottom:10px}
+        .rhead h2{font-family:"Bodoni Moda",Georgia,serif; font-size:26px; font-weight:600; margin:0}
+        .rstats{font-family:"IBM Plex Mono",monospace; font-size:12.5px; color:var(--ink-soft);
+            font-variant-numeric:tabular-nums}
+        .rstats b{color:var(--ink); font-weight:600}
+        .state{background:var(--card); border:1px solid var(--rule); border-radius:3px; box-shadow:var(--shadow);
+            padding:26px; display:flex; flex-direction:column; gap:12px}
+        .state h2{font-family:"Bodoni Moda",Georgia,serif; font-size:24px; font-weight:600; margin:0}
+        .state p{margin:0; font-size:14.5px; color:var(--ink-soft); max-width:60ch}
+        .state a{color:var(--avoir)}
+        td.ax[data-aux="avoir"]{color:var(--avoir)} td.ax[data-aux="être"]{color:var(--etre)}
+
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <header class="mast">
+        <div class="eyebrow">Bilan partag&eacute;</div>
+        <h1>&Agrave; <span class="acc">revoir</span></h1>
+        <p class="sub">Everything below was read out of the link itself &mdash; nothing was fetched from a
+            server, and nothing was stored by opening this page.</p>
+    </header>
+    <div id="out"></div>
+    <footer>
+        These figures come from one browser on one device, and the page can&rsquo;t verify them &mdash; treat it
+        as &ldquo;here&rsquo;s what I&rsquo;m struggling with&rdquo;, not as a graded result.
+        <a href="/" style="color:inherit">french-practice.com</a>
+    </footer>
+</div>
+<script>
+    const PC_ORDER = ["aimer", "aller", "s'amuser", "apprendre", "attendre", "avoir", "arriver", "boire", "choisir", "comprendre", "conduire", "connaître", "construire", "courir", "croire", "demander", "descendre", "devenir", "devoir", "dire", "disparaître", "dormir", "écrire", "entendre", "entrer", "envoyer", "éteindre", "être", "faire", "finir", "goûter", "s'habiller", "s'intéresser (à)", "se lever", "lire", "manger", "mettre", "monter", "mourir", "naître", "offrir", "ouvrir", "parler", "partir", "peindre", "plaire", "pleuvoir", "pouvoir", "prendre", "se promener", "recevoir", "rendre", "répondre", "rentrer", "rester", "retourner", "revenir", "rire", "savoir", "sortir", "se souvenir", "tenir", "tomber", "tourner", "vendre", "venir", "vivre", "voir", "voler", "vouloir"];
+    const NB_ORDER = ["base", "et_un", "diz", "sept", "qv", "cent", "mille", "annee", "prix", "tel"];
+    const NB_LABEL = {"base": "0 – 20", "et_un": "« et un »", "diz": "20 – 69", "sept": "70 – 79", "qv": "80 – 99", "cent": "centaines", "mille": "milliers", "annee": "années", "prix": "prix", "tel": "téléphone"};
+    const PC_VERBS = [["aimer", "avoir", "aimé", 0], ["aller", "être", "allé", 0], ["s'amuser", "être", "amusé", 1], ["apprendre", "avoir", "appris", 0], ["attendre", "avoir", "attendu", 0], ["avoir", "avoir", "eu", 0], ["arriver", "être", "arrivé", 0], ["boire", "avoir", "bu", 0], ["choisir", "avoir", "choisi", 0], ["comprendre", "avoir", "compris", 0], ["conduire", "avoir", "conduit", 0], ["connaître", "avoir", "connu", 0], ["construire", "avoir", "construit", 0], ["courir", "avoir", "couru", 0], ["croire", "avoir", "cru", 0], ["demander", "avoir", "demandé", 0], ["descendre", "être", "descendu", 0], ["devenir", "être", "devenu", 0], ["devoir", "avoir", "dû", 0], ["dire", "avoir", "dit", 0], ["disparaître", "avoir", "disparu", 0], ["dormir", "avoir", "dormi", 0], ["écrire", "avoir", "écrit", 0], ["entendre", "avoir", "entendu", 0], ["entrer", "être", "entré", 0], ["envoyer", "avoir", "envoyé", 0], ["éteindre", "avoir", "éteint", 0], ["être", "avoir", "été", 0], ["faire", "avoir", "fait", 0], ["finir", "avoir", "fini", 0], ["goûter", "avoir", "goûté", 0], ["s'habiller", "être", "habillé", 1], ["s'intéresser (à)", "être", "intéressé", 1], ["se lever", "être", "levé", 1], ["lire", "avoir", "lu", 0], ["manger", "avoir", "mangé", 0], ["mettre", "avoir", "mis", 0], ["monter", "être", "monté", 0], ["mourir", "être", "mort", 0], ["naître", "être", "né", 0], ["offrir", "avoir", "offert", 0], ["ouvrir", "avoir", "ouvert", 0], ["parler", "avoir", "parlé", 0], ["partir", "être", "parti", 0], ["peindre", "avoir", "peint", 0], ["plaire", "avoir", "plu", 0], ["pleuvoir", "avoir", "plu", 0], ["pouvoir", "avoir", "pu", 0], ["prendre", "avoir", "pris", 0], ["se promener", "être", "promené", 1], ["recevoir", "avoir", "reçu", 0], ["rendre", "avoir", "rendu", 0], ["répondre", "avoir", "répondu", 0], ["rentrer", "être", "rentré", 0], ["rester", "être", "resté", 0], ["retourner", "être", "retourné", 0], ["revenir", "être", "revenu", 0], ["rire", "avoir", "ri", 0], ["savoir", "avoir", "su", 0], ["sortir", "être", "sorti", 0], ["se souvenir", "être", "souvenu", 1], ["tenir", "avoir", "tenu", 0], ["tomber", "être", "tombé", 0], ["tourner", "avoir", "tourné", 0], ["vendre", "avoir", "vendu", 0], ["venir", "être", "venu", 0], ["vivre", "avoir", "vécu", 0], ["voir", "avoir", "vu", 0], ["voler", "avoir", "volé", 0], ["vouloir", "avoir", "voulu", 0]];
+
+    const B32 = "0123456789abcdefghijklmnopqrstuv";
+    const $out = document.getElementById("out");
+    function dq(ch){ const i = B32.indexOf(ch); return i < 0 ? 0 : i/2; }
+    function n36(s){ const v = parseInt(s, 36); return isFinite(v) ? v : 0; }
+    function esc(s){ return String(s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c])); }
+
+    function decode(hash){
+        const parts = hash.split("~");
+        if(parts.shift() !== "1") throw new Error("version");
+        const out = {};
+        for(const p of parts){
+            const tag = p.slice(0,2), rest = p.slice(2).split(".");
+            if(rest.length !== 4) throw new Error("shape");
+            const rec = {best:n36(rest[0]), n:n36(rest[1]), c:n36(rest[2]), miss:{}};
+            const keys = tag === "pc" ? PC_ORDER : NB_ORDER;
+            if(rest[3].length !== keys.length) throw new Error("length");
+            keys.forEach((k,i) => { const v = dq(rest[3][i]); if(v > 0) rec.miss[k] = v; });
+            out[tag] = rec;
+        }
+        if(!out.pc && !out.nb) throw new Error("empty");
+        return out;
+    }
+    function statLine(r){
+        const pct = r.n ? Math.round(100*r.c/r.n) : 0;
+        return '<div class="rstats"><b>' + r.n + '</b> questions &nbsp;·&nbsp; <b>' + r.c + '</b> justes ('
+            + pct + '&nbsp;%) &nbsp;·&nbsp; meilleure s&eacute;rie <b>' + r.best + '</b></div>';
+    }
+    function table(head, rows){
+        return '<div class="tablewrap"><table><thead><tr>' + head.map(h => "<th>"+h+"</th>").join("") +
+            '</tr></thead><tbody>' + (rows.length ? rows.join("")
+                : '<tr><td colspan="' + head.length + '" class="empty">Rien &agrave; revoir ici.</td></tr>') +
+            '</tbody></table></div>';
+    }
+    function render(d){
+        const html = [];
+        if(d.pc){
+            const V = {}; PC_VERBS.forEach(v => V[v[0]] = v);
+            const rows = Object.keys(d.pc.miss).sort((a,b) => d.pc.miss[b] - d.pc.miss[a]).map(k => {
+                const v = V[k] || [k,"",""], aux = v[3] ? "s'être" : v[1];
+                return '<tr><td class="inf">' + esc(k) + '</td><td class="ax" data-aux="' + esc(v[1]) + '">' +
+                    esc(aux) + '</td><td class="pp">' + esc(v[2]) + '</td><td class="n">' + d.pc.miss[k] + '</td></tr>';
+            });
+            html.push('<section class="report"><div class="rhead"><h2>Pass&eacute; compos&eacute;</h2>' +
+                statLine(d.pc) + '</div>' + table(["Infinitif","Aux.","Participe","Rat&eacute;s"], rows) + '</section>');
+        }
+        if(d.nb){
+            const rows = Object.keys(d.nb.miss).sort((a,b) => d.nb.miss[b] - d.nb.miss[a]).map(k =>
+                '<tr><td class="rl">' + esc(NB_LABEL[k] || k) + '</td><td class="n">' + d.nb.miss[k] + '</td></tr>');
+            html.push('<section class="report"><div class="rhead"><h2>Les nombres</h2>' +
+                statLine(d.nb) + '</div>' + table(["R&egrave;gle","Rat&eacute;s"], rows) + '</section>');
+        }
+        $out.innerHTML = '<div style="display:flex;flex-direction:column;gap:30px">' + html.join("") + '</div>';
+    }
+    function state(title, msg){
+        $out.innerHTML = '<div class="state"><h2>' + title + '</h2><p>' + msg + '</p></div>';
+    }
+    function boot(){
+        const h = decodeURIComponent(location.hash.replace(/^#/, "")).trim();
+        if(!h) return state("Nothing to show",
+            'This page renders a practice summary carried inside a link. Open a link someone sent you, or ' +
+            'generate your own from the bottom of any drill at <a href="/">french-practice.com</a>.');
+        try{ render(decode(h)); }
+        catch(e){ state("That link didn&rsquo;t read properly",
+            'The summary is incomplete or was truncated somewhere along the way &mdash; messaging apps sometimes ' +
+            'cut long links. Ask for it again, or paste the plain-text summary instead.'); }
+    }
+    addEventListener("hashchange", boot);
+    boot();
+
+</script>
+</body>
+</html>
