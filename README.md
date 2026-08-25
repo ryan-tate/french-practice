@@ -50,19 +50,6 @@ palette and both themes.
 | **Forme complète** | `elles ______ (partir)` | the whole conjugated phrase, agreement included |
 | **Mixte** | — | rotates through all three |
 
-**Format:** *Écrire* (type the answer, graded automatically) or *Cartes* — a flashcard pass over
-the same questions. A card shows the prompt, you recall the answer, flip it with the button or the
-space bar, then mark yourself *Je savais* (**J**) or *À revoir* (**R**).
-
-Cards are **self**-graded, so they are kept out of the graded score on purpose: they move the
-per-verb review weighting and the coverage count, but never the *Juste* percentage, the *Record*
-streak, or the figures in a shared bilan. Otherwise a self-reported "I knew that" would be mixed
-into the number a teacher reads as a test result. Cards change *what comes back*, not *how well
-you did*.
-
-Both formats compose with every exercise, so you can flashcard just the auxiliaries, or just the
-full conjugated forms.
-
 **Scope:** all 70, colonne 1, colonne 2, or only verbs you've missed before. Draws are even
 across the list; anything you get wrong is weighted up and resurfaces until you clear it.
 

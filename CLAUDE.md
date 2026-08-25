@@ -62,15 +62,6 @@ Copy the token block from an existing drill. Do not invent new colors.
 All drills share the same skeleton, in this order: topbar (eyebrow + home/theme tools) → masthead
 → control rows (chips) → four-stat scoreboard → question card → review table → export row → footer.
 
-The passé composé drill has a second, orthogonal control row: **Format** — *Écrire* (typed, graded)
-or *Cartes* (flashcards, self-graded). It composes with the Exercice row rather than replacing it.
-
-**Self-graded answers must never touch `n`, `c` or `best`.** Cards update `stats[v].seen` and
-`stats[v].miss` — so they drive the weighting, the review table and coverage — but the graded
-score and the bilan percentage stay typed-only. Mixing self-reported accuracy into the number a
-tutor reads would make it meaningless. If another self-graded mode is ever added, keep that split
-and say so in the UI, as the Format row's hint does.
-
 State shape in `localStorage`:
 
 - `pc-drill-v3` → `{stats: {<verb>: {seen, miss}}, best, n, c}`
