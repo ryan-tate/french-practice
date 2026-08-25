@@ -10,6 +10,7 @@ no JavaScript bundle. Open one locally and it works exactly as it does on the si
 ```
 /
 ├── index.html          home page — links to each drill
+├── CLAUDE.md           conventions & constraints for agent-assisted work
 ├── README.md
 ├── passe-compose/
 │   └── index.html      Passé composé · participes passés
