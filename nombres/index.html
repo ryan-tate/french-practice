@@ -6,6 +6,17 @@
   <title>Les Nombres</title>
   <meta name="description" content="Self-scoring French number drill: figures to words and words to figures, including the 70-99 zone, years, prices and phone numbers.">
   <meta name="color-scheme" content="light dark">
+  <script>
+    /* Theme: follow the OS by default. An explicit choice is remembered and wins.
+       Inline and before the stylesheet so the page never flashes the wrong palette. */
+    try{ var fpT = localStorage.getItem("fp-theme");
+         if(fpT === "light" || fpT === "dark"){
+           document.documentElement.setAttribute("data-theme", fpT);
+           var m = document.querySelector('meta[name="color-scheme"]');
+           if(m) m.setAttribute("content", fpT);
+         }
+    }catch(e){}
+  </script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%94%A2%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -179,12 +190,31 @@
     .exphelp b{color:var(--ink-soft)}
     .fallback{width:100%; font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ink);
       background:var(--paper); border:1px solid var(--rule); border-radius:2px; padding:9px; resize:vertical}
+    /* ---- top bar: home + theme toggle ---- */
+    .topbar{display:flex; align-items:center; gap:12px}
+    .topbar .eyebrow{flex:1; min-width:0}
+    .tools{display:flex; align-items:center; gap:6px; flex:none}
+    .tool{display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px;
+      padding:0; border:1px solid var(--rule); border-radius:3px; background:transparent;
+      color:var(--ink-faint); cursor:pointer; text-decoration:none;
+      -webkit-appearance:none; appearance:none; font:inherit}
+    .tool:hover{color:var(--ink); border-color:var(--ink-faint)}
+    .tool:focus-visible{outline:2px solid var(--avoir); outline-offset:2px}
+    .tool svg{width:15px; height:15px; display:block; fill:none; stroke:currentColor;
+      stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round}
+
   </style>
 </head>
 <body>
 <div class="wrap">
   <header class="mast">
-    <div class="eyebrow">Nombres &middot; 0 &rarr; 99 999</div>
+    <div class="topbar">
+      <div class="eyebrow">Nombres &middot; 0 &rarr; 99 999</div>
+      <nav class="tools">
+        <a class="tool" href="/" aria-label="Accueil" title="Accueil"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11L12 4l8.5 7"/><path d="M5.5 9.8V19h13V9.8"/></svg></a>
+        <button class="tool" id="theme" type="button" aria-label="Thème : système" title="Thème : système"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 010 16z" fill="currentColor" stroke="none"/></svg></button>
+      </nav>
+    </div>
     <h1>Les <span class="acc">nombres</span></h1>
     <p class="sub">Both directions: read a figure and write it out, or read the words and write the figure.
       Miss one and the <b>rule</b> behind it — not just that number — starts coming up more often.</p>
@@ -606,6 +636,41 @@
     bCopy(bSummary(), "Résumé copié.");
   });
 
+</script>
+<script>
+  /* Theme toggle — cycles système → clair → sombre. "système" removes the override
+     so the OS decides again; the other two are remembered in localStorage. */
+  (function(){
+    var KEY = "fp-theme", el = document.getElementById("theme");
+    if(!el) return;
+    var ICON = {
+      auto: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 010 16z" fill="currentColor" stroke="none"/></svg>',
+      light: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.1M12 19.3v2.1M2.6 12h2.1M19.3 12h2.1M5.2 5.2l1.5 1.5M17.3 17.3l1.5 1.5M18.8 5.2l-1.5 1.5M6.7 17.3l-1.5 1.5"/></svg>',
+      dark: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 14.6A8.6 8.6 0 019.4 3.8a8.6 8.6 0 1010.8 10.8z"/></svg>'
+    };
+    var LABEL = {auto:"Thème : système", light:"Thème : clair", dark:"Thème : sombre"};
+    var NEXT = {auto:"light", light:"dark", dark:"auto"};
+    function read(){
+      try{ var v = localStorage.getItem(KEY); return (v === "light" || v === "dark") ? v : "auto"; }
+      catch(e){ return "auto"; }
+    }
+    function apply(m){
+      var root = document.documentElement;
+      if(m === "auto") root.removeAttribute("data-theme"); else root.setAttribute("data-theme", m);
+      var meta = document.querySelector('meta[name="color-scheme"]');
+      if(meta) meta.setAttribute("content", m === "auto" ? "light dark" : m);
+      el.innerHTML = ICON[m];
+      el.setAttribute("aria-label", LABEL[m]);
+      el.setAttribute("title", LABEL[m]);
+    }
+    var cur = read();
+    apply(cur);
+    el.addEventListener("click", function(){
+      cur = NEXT[cur];
+      try{ cur === "auto" ? localStorage.removeItem(KEY) : localStorage.setItem(KEY, cur); }catch(e){}
+      apply(cur);
+    });
+  })();
 </script>
 </body>
 </html>

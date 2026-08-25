@@ -49,17 +49,26 @@ Copy the token block from an existing drill. Do not invent new colors.
   inside a media or `[data-theme]` block — that is the classic unreadable-page bug.
 - The accent pair carries meaning: **avoir is blue, être is ochre**, everywhere. Reuse that pair
   only for genuine binaries, not decoration.
+- **The theme toggle is the reason the three states exist.** An icon-only button cycles
+  système → clair → sombre by setting or clearing `data-theme` on `<html>`; *système* removes the
+  attribute entirely. An inline script in `<head>`, placed before the stylesheet link, applies the
+  stored choice pre-paint — keep it there or the page flashes. It also syncs the
+  `<meta name="color-scheme">` so form controls and scrollbars follow.
+- Both top-right controls use `.tool` (30px, `--rule` border, `--ink-faint` icon, `currentColor`
+  inline SVG). Icons are inline SVG because there is no asset pipeline and none is wanted.
 
 ## Anatomy of a drill
 
-All drills share the same skeleton, in this order: masthead → control rows (chips) → four-stat
-scoreboard → question card → review table → export row → footer.
+All drills share the same skeleton, in this order: topbar (eyebrow + home/theme tools) → masthead
+→ control rows (chips) → four-stat scoreboard → question card → review table → export row → footer.
 
 State shape in `localStorage`:
 
 - `pc-drill-v3` → `{stats: {<verb>: {seen, miss}}, best, n, c}`
 - `nb-drill-v1` → `{miss: {<rule>: n}, best, n, c}`
 - `in-drill-v1` → `{miss: {<rule>: n}, best, n, c}`
+- `fp-theme` → `"light"` or `"dark"`; absent means follow the OS. Not drill progress, and the
+  reset button must not clear it.
 
 `n` = questions answered, `c` = correct. Missed items are weighted up on selection
 (`1 + 1.7 × miss`) and decay by 0.5 on a correct answer. Accent-only errors score `presque`,
@@ -70,9 +79,11 @@ count as 0.5 miss, and break the streak.
 1. Copy the closest existing drill as a starting skeleton.
 2. Keep the same control-row / scoreboard / card / review structure.
 3. Bump the `localStorage` key if the shape changes; never silently reinterpret an old key.
-4. Add an `<a class="drill">` card to the root `index.html` — there's a comment marking the spot.
-5. Add a section to `README.md`.
-6. If the drill should be exportable, add its key to the bilan encoder (see below).
+4. Copy the `.topbar` block (home + theme tools), its CSS, and both theme scripts — the inline
+   one in `<head>` and the toggle at the end of `<body>`. They are identical in every page.
+5. Add an `<a class="drill">` card to the root `index.html` — there's a comment marking the spot.
+6. Add a section to `README.md`.
+7. If the drill should be exportable, add its key to the bilan encoder (see below).
 
 ## Bilan export contract
 

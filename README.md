@@ -139,6 +139,20 @@ own past mistakes.
 Question words (*où*, *quand*, *pourquoi*…), noun subjects and negative questions are not
 drilled yet — see the backlog in `CLAUDE.md`.
 
+## Theme and navigation
+
+Every page follows the operating system's light/dark setting by default. A small icon-only button
+in the top right overrides it, cycling **système → clair → sombre**: the two explicit choices are
+remembered in `localStorage` under `fp-theme`, and returning to *système* removes the override so
+the OS decides again. The choice is applied by an inline script in `<head>`, before any stylesheet
+loads, so a page never flashes the wrong palette.
+
+Every page except the home page also carries a home button next to it.
+
+The palette itself is unchanged — the tokens already had three states (bare `:root` for light, a
+`prefers-color-scheme` block guarded by `:root:not([data-theme="light"])`, and
+`:root[data-theme="dark"]`), so the toggle only sets or clears `data-theme` on the root element.
+
 ## Sharing a bilan
 
 Each drill has two export buttons under its review table:
@@ -164,7 +178,8 @@ with" artifact, not a grade.
 
 ## Privacy
 
-Progress is kept in the browser's `localStorage`. It leaves the device only when the user clicks
+Progress is kept in the browser's `localStorage`, alongside one other key — `fp-theme`, holding a
+light/dark choice if the visitor made one. It leaves the device only when the user clicks
 one of the export buttons, and then only into whatever message they paste it in. No server, no
 analytics, no cookies, no accounts. The only outbound request any page makes is to Google Fonts
 for the stylesheet; offline, the pages fall back to system fonts and still work. Each visitor's
