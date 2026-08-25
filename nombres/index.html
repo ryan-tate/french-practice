@@ -1,181 +1,185 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Les Nombres</title>
-<meta name="description" content="Self-scoring French number drill: figures to words and words to figures, including the 70-99 zone, years, prices and phone numbers.">
-<meta name="color-scheme" content="light dark">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%94%A2%3C/text%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,600;6..96,700&family=IBM+Plex+Mono:wght@400;500;600&family=Libre+Franklin:wght@400;500;600;700&display=swap">
-<style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Les Nombres</title>
+  <meta name="description" content="Self-scoring French number drill: figures to words and words to figures, including the 70-99 zone, years, prices and phone numbers.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%94%A2%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,600;6..96,700&family=IBM+Plex+Mono:wght@400;500;600&family=Libre+Franklin:wght@400;500;600;700&display=swap">
+  <style>
 
-:root{
-  --paper:#EFEEE9; --card:#FBFAF7; --ink:#171B24; --ink-soft:#5B6070; --ink-faint:#8C8F9C;
-  --rule:#D8D6CE; --rule-soft:#E5E3DC;
-  --avoir:#3B4A8C; --avoir-wash:#E4E5F1;
-  --etre:#A5661C; --etre-wash:#F3E6D5;
-  --juste:#2E6B4A; --juste-wash:#E0EDE5;
-  --faux:#A93B2C; --faux-wash:#F5E3DF;
-  --presque:#8A6A12; --presque-wash:#F3EBD6;
-  --shadow:0 1px 0 rgba(23,27,36,.05), 0 12px 30px -18px rgba(23,27,36,.35);
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --paper:#13151B; --card:#1B1E27; --ink:#E9E7E1; --ink-soft:#A2A6B4; --ink-faint:#767A88;
-    --rule:#2E323D; --rule-soft:#252932;
-    --avoir:#98A4EA; --avoir-wash:#242A45;
-    --etre:#E0A85E; --etre-wash:#3A2E1C;
-    --juste:#6FC095; --juste-wash:#1C3128;
-    --faux:#E5877B; --faux-wash:#3A2320;
-    --presque:#D8B75C; --presque-wash:#332C18;
-    --shadow:0 1px 0 rgba(0,0,0,.3), 0 12px 30px -18px rgba(0,0,0,.8);
-  }
-}
-:root[data-theme="dark"]{
-  --paper:#13151B; --card:#1B1E27; --ink:#E9E7E1; --ink-soft:#A2A6B4; --ink-faint:#767A88;
-  --rule:#2E323D; --rule-soft:#252932;
-  --avoir:#98A4EA; --avoir-wash:#242A45;
-  --etre:#E0A85E; --etre-wash:#3A2E1C;
-  --juste:#6FC095; --juste-wash:#1C3128;
-  --faux:#E5877B; --faux-wash:#3A2320;
-  --presque:#D8B75C; --presque-wash:#332C18;
-  --shadow:0 1px 0 rgba(0,0,0,.3), 0 12px 30px -18px rgba(0,0,0,.8);
-}
-*{box-sizing:border-box}
-body{
-  margin:0; background:var(--paper); color:var(--ink);
-  font-family:"Libre Franklin",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased;
-}
-.wrap{max-width:700px; margin:0 auto; padding:40px 20px 72px; display:flex; flex-direction:column; gap:26px}
+    :root{
+      --paper:#EFEEE9; --card:#FBFAF7; --ink:#171B24; --ink-soft:#5B6070; --ink-faint:#8C8F9C;
+      --rule:#D8D6CE; --rule-soft:#E5E3DC;
+      --avoir:#3B4A8C; --avoir-wash:#E4E5F1;
+      --etre:#A5661C; --etre-wash:#F3E6D5;
+      --juste:#2E6B4A; --juste-wash:#E0EDE5;
+      --faux:#A93B2C; --faux-wash:#F5E3DF;
+      --presque:#8A6A12; --presque-wash:#F3EBD6;
+      --shadow:0 1px 0 rgba(23,27,36,.05), 0 12px 30px -18px rgba(23,27,36,.35);
+    }
+    @media (prefers-color-scheme: dark){
+      :root:not([data-theme="light"]){
+        --paper:#13151B; --card:#1B1E27; --ink:#E9E7E1; --ink-soft:#A2A6B4; --ink-faint:#767A88;
+        --rule:#2E323D; --rule-soft:#252932;
+        --avoir:#98A4EA; --avoir-wash:#242A45;
+        --etre:#E0A85E; --etre-wash:#3A2E1C;
+        --juste:#6FC095; --juste-wash:#1C3128;
+        --faux:#E5877B; --faux-wash:#3A2320;
+        --presque:#D8B75C; --presque-wash:#332C18;
+        --shadow:0 1px 0 rgba(0,0,0,.3), 0 12px 30px -18px rgba(0,0,0,.8);
+      }
+    }
+    :root[data-theme="dark"]{
+      --paper:#13151B; --card:#1B1E27; --ink:#E9E7E1; --ink-soft:#A2A6B4; --ink-faint:#767A88;
+      --rule:#2E323D; --rule-soft:#252932;
+      --avoir:#98A4EA; --avoir-wash:#242A45;
+      --etre:#E0A85E; --etre-wash:#3A2E1C;
+      --juste:#6FC095; --juste-wash:#1C3128;
+      --faux:#E5877B; --faux-wash:#3A2320;
+      --presque:#D8B75C; --presque-wash:#332C18;
+      --shadow:0 1px 0 rgba(0,0,0,.3), 0 12px 30px -18px rgba(0,0,0,.8);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; background:var(--paper); color:var(--ink);
+      font-family:"Libre Franklin",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased;
+    }
+    .wrap{max-width:700px; margin:0 auto; padding:40px 20px 72px; display:flex; flex-direction:column; gap:26px}
 
-/* ---- masthead ---- */
-.mast{display:flex; flex-direction:column; gap:8px; border-bottom:1px solid var(--rule); padding-bottom:18px}
-.eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11px; letter-spacing:.16em;
-  text-transform:uppercase; color:var(--ink-faint)}
-h1{font-family:"Bodoni Moda",Didot,Georgia,serif; font-weight:600; font-size:clamp(34px,7vw,50px);
-  line-height:1; margin:0; letter-spacing:-.01em; text-wrap:balance}
-h1 .acc{font-style:italic; font-weight:400}
-.sub{font-size:14px; color:var(--ink-soft); max-width:56ch}
-.sub b{color:var(--ink); font-weight:600}
+    /* ---- masthead ---- */
+    .mast{display:flex; flex-direction:column; gap:8px; border-bottom:1px solid var(--rule); padding-bottom:18px}
+    .eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11px; letter-spacing:.16em;
+      text-transform:uppercase; color:var(--ink-faint)}
+    h1{font-family:"Bodoni Moda",Didot,Georgia,serif; font-weight:600; font-size:clamp(34px,7vw,50px);
+      line-height:1; margin:0; letter-spacing:-.01em; text-wrap:balance}
+    h1 .acc{font-style:italic; font-weight:400}
+    .sub{font-size:14px; color:var(--ink-soft); max-width:56ch}
+    .sub b{color:var(--ink); font-weight:600}
 
-/* ---- control rows ---- */
-.controls{display:flex; flex-direction:column; gap:10px}
-.row{display:flex; flex-wrap:wrap; align-items:center; gap:8px}
-.rowlab{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.14em;
-  text-transform:uppercase; color:var(--ink-faint); width:62px; flex:none}
-.chip{
-  font:inherit; font-size:13px; font-weight:500; color:var(--ink-soft);
-  background:transparent; border:1px solid var(--rule); border-radius:2px;
-  padding:5px 11px; cursor:pointer; transition:background .14s, color .14s, border-color .14s;
-}
-.chip:hover:not(:disabled){border-color:var(--ink-faint); color:var(--ink)}
-.chip:disabled{opacity:.38; cursor:not-allowed}
-.hint{font-size:12px; color:var(--ink-faint); font-style:italic}
+    /* ---- control rows ---- */
+    .controls{display:flex; flex-direction:column; gap:10px}
+    .row{display:flex; flex-wrap:wrap; align-items:center; gap:8px}
+    .rowlab{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.14em;
+      text-transform:uppercase; color:var(--ink-faint); width:62px; flex:none}
+    .chip{
+      font:inherit; font-size:13px; font-weight:500; color:var(--ink-soft);
+      background:transparent; border:1px solid var(--rule); border-radius:2px;
+      padding:5px 11px; cursor:pointer; transition:background .14s, color .14s, border-color .14s;
+    }
+    .chip:hover:not(:disabled){border-color:var(--ink-faint); color:var(--ink)}
+    .chip:disabled{opacity:.38; cursor:not-allowed}
+    .hint{font-size:12px; color:var(--ink-faint); font-style:italic}
 
-.chip[aria-pressed="true"]{background:var(--ink); border-color:var(--ink); color:var(--paper)}
-.chip:focus-visible,.opt:focus-visible,.btn:focus-visible,input:focus-visible{outline:2px solid var(--avoir); outline-offset:2px}
+    .chip[aria-pressed="true"]{background:var(--ink); border-color:var(--ink); color:var(--paper)}
+    .chip:focus-visible,.opt:focus-visible,.btn:focus-visible,input:focus-visible{outline:2px solid var(--avoir); outline-offset:2px}
 
-/* ---- scoreboard ---- */
-.score{display:flex; align-items:stretch; border:1px solid var(--rule); border-radius:3px;
-  background:var(--card); box-shadow:var(--shadow); overflow:hidden}
-.stat{flex:1; padding:11px 14px; display:flex; flex-direction:column; gap:1px; border-right:1px solid var(--rule-soft)}
-.stat:last-child{border-right:none}
-.stat .k{font-family:"IBM Plex Mono",monospace; font-size:9.5px; letter-spacing:.14em;
-  text-transform:uppercase; color:var(--ink-faint)}
-.stat .v{font-family:"Bodoni Moda",Georgia,serif; font-size:24px; font-weight:600; line-height:1.1;
-  font-variant-numeric:tabular-nums}
-.stat .v small{font-family:"IBM Plex Mono",monospace; font-size:12px; font-weight:400; color:var(--ink-faint)}
+    /* ---- scoreboard ---- */
+    .score{display:flex; align-items:stretch; border:1px solid var(--rule); border-radius:3px;
+      background:var(--card); box-shadow:var(--shadow); overflow:hidden}
+    .stat{flex:1; padding:11px 14px; display:flex; flex-direction:column; gap:1px; border-right:1px solid var(--rule-soft)}
+    .stat:last-child{border-right:none}
+    .stat .k{font-family:"IBM Plex Mono",monospace; font-size:9.5px; letter-spacing:.14em;
+      text-transform:uppercase; color:var(--ink-faint)}
+    .stat .v{font-family:"Bodoni Moda",Georgia,serif; font-size:24px; font-weight:600; line-height:1.1;
+      font-variant-numeric:tabular-nums}
+    .stat .v small{font-family:"IBM Plex Mono",monospace; font-size:12px; font-weight:400; color:var(--ink-faint)}
 
-/* ---- question card ---- */
-.card{min-height:340px; background:var(--card); border:1px solid var(--rule); border-radius:3px;
-  box-shadow:var(--shadow); padding:28px 26px 26px; display:flex; flex-direction:column; gap:18px;
-  position:relative; overflow:hidden}
-.card::before{content:""; position:absolute; inset:0 auto 0 0; width:3px; background:var(--rule); transition:background .2s}
-.card[data-state="juste"]::before{background:var(--juste)}
-.card[data-state="faux"]::before{background:var(--faux)}
-.card[data-state="presque"]::before{background:var(--presque)}
-.qhead{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
-.qhead .spacer{flex:1}
-.qtype{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.16em;
-  text-transform:uppercase; color:var(--ink-faint)}
+    /* ---- question card ---- */
+    .card{min-height:340px; background:var(--card); border:1px solid var(--rule); border-radius:3px;
+      box-shadow:var(--shadow); padding:28px 26px 26px; display:flex; flex-direction:column; gap:18px;
+      position:relative; overflow:hidden}
+    .card::before{content:""; position:absolute; inset:0 auto 0 0; width:3px; background:var(--rule); transition:background .2s}
+    .card[data-state="juste"]::before{background:var(--juste)}
+    .card[data-state="faux"]::before{background:var(--faux)}
+    .card[data-state="presque"]::before{background:var(--presque)}
+    .qhead{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+    .qhead .spacer{flex:1}
+    .qtype{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.16em;
+      text-transform:uppercase; color:var(--ink-faint)}
 
 
-.prompt{font-family:"Bodoni Moda",Didot,Georgia,serif; font-size:clamp(28px,6vw,40px);
-  line-height:1.12; font-weight:600; letter-spacing:-.01em; margin:0; text-wrap:balance}
-.prompt .cue{color:var(--ink-faint); font-weight:400; font-style:italic}
-.prompt .slot{color:var(--ink-faint); font-family:"IBM Plex Mono",monospace; font-size:.62em;
-  font-weight:400; letter-spacing:.04em; vertical-align:.08em}
-.ask{font-size:13.5px; color:var(--ink-soft); margin:-8px 0 0}
+    .prompt{font-family:"Bodoni Moda",Didot,Georgia,serif; font-size:clamp(28px,6vw,40px);
+      line-height:1.12; font-weight:600; letter-spacing:-.01em; margin:0; text-wrap:balance}
+    .prompt .cue{color:var(--ink-faint); font-weight:400; font-style:italic}
+    .prompt .slot{color:var(--ink-faint); font-family:"IBM Plex Mono",monospace; font-size:.62em;
+      font-weight:400; letter-spacing:.04em; vertical-align:.08em}
+    .ask{font-size:13.5px; color:var(--ink-soft); margin:-8px 0 0}
 
-/* answer input */
-.answer{display:flex; gap:8px; flex-wrap:wrap}
-input[type=text]{
-  flex:1 1 220px; min-width:0; font-family:"IBM Plex Mono",monospace; font-size:17px;
-  color:var(--ink); background:var(--paper); border:1px solid var(--rule); border-radius:2px;
-  padding:11px 13px;
-}
-input[type=text]::placeholder{color:var(--ink-faint)}
-input[type=text]:disabled{opacity:.75}
-.btn{font:inherit; font-size:14px; font-weight:600; padding:11px 20px; border-radius:2px; cursor:pointer;
-  background:var(--ink); color:var(--paper); border:1px solid var(--ink); transition:opacity .14s}
-.btn:hover{opacity:.85}
-.btn.ghost{background:transparent; color:var(--ink-soft); border-color:var(--rule)}
-.btn.ghost:hover{color:var(--ink); border-color:var(--ink-faint)}
+    /* answer input */
+    .answer{display:flex; gap:8px; flex-wrap:wrap}
+    input[type=text]{
+      flex:1 1 220px; min-width:0; font-family:"IBM Plex Mono",monospace; font-size:17px;
+      color:var(--ink); background:var(--paper); border:1px solid var(--rule); border-radius:2px;
+      padding:11px 13px;
+    }
+    input[type=text]::placeholder{color:var(--ink-faint)}
+    input[type=text]:disabled{opacity:.75}
+    .btn{font:inherit; font-size:14px; font-weight:600; padding:11px 20px; border-radius:2px; cursor:pointer;
+      background:var(--ink); color:var(--paper); border:1px solid var(--ink); transition:opacity .14s}
+    .btn:hover{opacity:.85}
+    .btn.ghost{background:transparent; color:var(--ink-soft); border-color:var(--rule)}
+    .btn.ghost:hover{color:var(--ink); border-color:var(--ink-faint)}
 
-/* feedback */
-.fb{display:flex; flex-direction:column; gap:9px; border-top:1px solid var(--rule-soft); padding-top:16px}
-.verdict{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap}
-.mark{font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:600; letter-spacing:.14em;
-  text-transform:uppercase; padding:3px 9px; border-radius:2px}
-.mark[data-s="juste"]{color:var(--juste); background:var(--juste-wash)}
-.mark[data-s="faux"]{color:var(--faux); background:var(--faux-wash)}
-.mark[data-s="presque"]{color:var(--presque); background:var(--presque-wash)}
-.sol{font-family:"IBM Plex Mono",monospace; font-size:18px; font-weight:500}
-.yours{font-family:"IBM Plex Mono",monospace; font-size:13px; color:var(--ink-faint)}
-.yours s{text-decoration-color:var(--faux)}
-.note{font-size:13.5px; color:var(--ink-soft); border-left:2px solid var(--rule); padding-left:11px; max-width:62ch}
-.note b{color:var(--ink); font-weight:600}
+    /* feedback */
+    .fb{display:flex; flex-direction:column; gap:9px; border-top:1px solid var(--rule-soft); padding-top:16px}
+    .verdict{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap}
+    .mark{font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:600; letter-spacing:.14em;
+      text-transform:uppercase; padding:3px 9px; border-radius:2px}
+    .mark[data-s="juste"]{color:var(--juste); background:var(--juste-wash)}
+    .mark[data-s="faux"]{color:var(--faux); background:var(--faux-wash)}
+    .mark[data-s="presque"]{color:var(--presque); background:var(--presque-wash)}
+    .sol{font-family:"IBM Plex Mono",monospace; font-size:18px; font-weight:500}
+    .yours{font-family:"IBM Plex Mono",monospace; font-size:13px; color:var(--ink-faint)}
+    .yours s{text-decoration-color:var(--faux)}
+    .note{font-size:13.5px; color:var(--ink-soft); border-left:2px solid var(--rule); padding-left:11px; max-width:62ch}
+    .note b{color:var(--ink); font-weight:600}
 
-/* ---- review ---- */
-.review{display:flex; flex-direction:column; gap:12px}
-.review h2{font-family:"Bodoni Moda",Georgia,serif; font-size:20px; font-weight:600; margin:0}
-.tablewrap{overflow-x:auto; border:1px solid var(--rule); border-radius:3px; background:var(--card)}
-table{width:100%; border-collapse:collapse; font-size:14px}
-th,td{text-align:left; padding:8px 12px; border-bottom:1px solid var(--rule-soft); white-space:nowrap}
-th{font-family:"IBM Plex Mono",monospace; font-size:9.5px; letter-spacing:.13em; text-transform:uppercase;
-  color:var(--ink-faint); font-weight:500}
-tr:last-child td{border-bottom:none}
-td.inf{font-weight:600}
-td.pp{font-family:"IBM Plex Mono",monospace}
-td.ax{font-family:"IBM Plex Mono",monospace; font-size:12px}
-td.n{font-family:"IBM Plex Mono",monospace; color:var(--faux); font-variant-numeric:tabular-nums}
-.empty{padding:14px 12px; font-size:13.5px; color:var(--ink-faint)}
-footer{font-size:12px; color:var(--ink-faint); border-top:1px solid var(--rule); padding-top:14px; line-height:1.6}
-@keyframes rise{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
-.anim{animation:rise .22s ease-out}
-@media (prefers-reduced-motion:reduce){.anim{animation:none}}
-@media (max-width:520px){ .rowlab{width:100%} .opts{grid-template-columns:1fr} }
-/* ---- numbers-specific ---- */
-.tagline{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.1em;
-  text-transform:uppercase; color:var(--ink-faint); border:1px solid var(--rule);
-  border-radius:99px; padding:2px 9px}
-.tagline[data-trap="1"]{color:var(--etre); border-color:var(--etre)}
-.digits{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums;
-  font-size:clamp(40px,10vw,64px); font-weight:500; letter-spacing:.01em; line-height:1.05; margin:0}
-.digits .unit{font-size:.42em; color:var(--ink-faint); font-weight:400; margin-left:.18em}
-.words{font-family:"Bodoni Moda",Didot,Georgia,serif; font-size:clamp(26px,5.4vw,38px);
-  font-weight:600; line-height:1.15; letter-spacing:-.01em; margin:0; text-wrap:balance}
-.sol{font-family:"IBM Plex Mono",monospace; font-size:17px; font-weight:500; line-height:1.4}
-.rulebadge{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.12em;
-  text-transform:uppercase; color:var(--ink-faint)}
-td.rl{font-weight:600}
-td.ex{font-family:"IBM Plex Mono",monospace; color:var(--ink-soft); font-size:13px}
+    /* ---- review ---- */
+    .review{display:flex; flex-direction:column; gap:12px}
+    .review h2{font-family:"Bodoni Moda",Georgia,serif; font-size:20px; font-weight:600; margin:0}
+    .tablewrap{overflow-x:auto; border:1px solid var(--rule); border-radius:3px; background:var(--card)}
+    table{width:100%; border-collapse:collapse; font-size:14px}
+    th,td{text-align:left; padding:8px 12px; border-bottom:1px solid var(--rule-soft); white-space:nowrap}
+    th{font-family:"IBM Plex Mono",monospace; font-size:9.5px; letter-spacing:.13em; text-transform:uppercase;
+      color:var(--ink-faint); font-weight:500}
+    tr:last-child td{border-bottom:none}
+    td.inf{font-weight:600}
+    td.pp{font-family:"IBM Plex Mono",monospace}
+    td.ax{font-family:"IBM Plex Mono",monospace; font-size:12px}
+    td.n{font-family:"IBM Plex Mono",monospace; color:var(--faux); font-variant-numeric:tabular-nums}
+    .empty{padding:14px 12px; font-size:13.5px; color:var(--ink-faint)}
+    footer{font-size:12px; color:var(--ink-faint); border-top:1px solid var(--rule); padding-top:14px; line-height:1.6}
+    @keyframes rise{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
+    .anim{animation:rise .22s ease-out}
+    @media (prefers-reduced-motion:reduce){.anim{animation:none}}
+    @media (max-width:520px){ .rowlab{width:100%} .opts{grid-template-columns:1fr} }
+    /* ---- numbers-specific ---- */
+    .tagline{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.1em;
+      text-transform:uppercase; color:var(--ink-faint); border:1px solid var(--rule);
+      border-radius:99px; padding:2px 9px}
+    .tagline[data-trap="1"]{color:var(--etre); border-color:var(--etre)}
+    .digits{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums;
+      font-size:clamp(40px,10vw,64px); font-weight:500; letter-spacing:.01em; line-height:1.05; margin:0}
+    .digits .unit{font-size:.42em; color:var(--ink-faint); font-weight:400; margin-left:.18em}
+    .words{font-family:"Bodoni Moda",Didot,Georgia,serif; font-size:clamp(26px,5.4vw,38px);
+      font-weight:600; line-height:1.15; letter-spacing:-.01em; margin:0; text-wrap:balance}
+    .sol{font-family:"IBM Plex Mono",monospace; font-size:17px; font-weight:500; line-height:1.4}
+    .rulebadge{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.12em;
+      text-transform:uppercase; color:var(--ink-faint)}
+    td.rl{font-weight:600}
+    td.ex{font-family:"IBM Plex Mono",monospace; color:var(--ink-soft); font-size:13px}
 
-</style>
+    .exphelp{font-size:12.5px; color:var(--ink-faint); max-width:62ch; margin:0; line-height:1.5}
+    .exphelp b{color:var(--ink-soft)}
+    .fallback{width:100%; font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ink);
+      background:var(--paper); border:1px solid var(--rule); border-radius:2px; padding:9px; resize:vertical}
+  </style>
 </head>
 <body>
 <div class="wrap">
@@ -228,7 +232,16 @@ td.ex{font-family:"IBM Plex Mono",monospace; color:var(--ink-soft); font-size:13
         <tbody id="revbody"></tbody>
       </table>
     </div>
-    <div class="row"><button class="btn ghost" id="reset">Effacer mes statistiques</button></div>
+    <div class="row">
+      <button class="btn" id="bshare">Copier le lien du bilan</button>
+      <button class="btn ghost" id="bcopy">Copier le r&eacute;sum&eacute;</button>
+      <button class="btn ghost" id="reset">Effacer mes statistiques</button>
+    </div>
+    <p class="hint" id="bmsg"></p>
+    <p class="exphelp">Le lien ouvre un bilan lisible &mdash; utile &agrave; envoyer &agrave; un prof. Rien n'est
+      transmis &agrave; un serveur&nbsp;: tes chiffres voyagent uniquement dans le message que tu envoies, et
+      ne concernent que <b>ce navigateur</b>.</p>
+    <textarea id="bfall" class="fallback" rows="4" readonly hidden></textarea>
   </section>
 
   <footer>
@@ -239,256 +252,321 @@ td.ex{font-family:"IBM Plex Mono",monospace; color:var(--ink-soft); font-size:13
   </footer>
 </div>
 <script>
-/* ---------- number spelling ---------- */
-const U = ["zéro","un","deux","trois","quatre","cinq","six","sept","huit","neuf","dix",
-  "onze","douze","treize","quatorze","quinze","seize","dix-sept","dix-huit","dix-neuf"];
-const T = {2:"vingt",3:"trente",4:"quarante",5:"cinquante",6:"soixante"};
-function u100(n, more){
-  if(n < 20) return U[n];
-  const t = Math.floor(n/10), u = n%10;
-  if(t === 7 || t === 9){
-    const base = t === 7 ? "soixante" : "quatre-vingt", rem = n - (t === 7 ? 60 : 80);
-    if(t === 7 && rem === 11) return "soixante et onze";
-    return base + "-" + U[rem];
+  /* ---------- number spelling ---------- */
+  const U = ["zéro","un","deux","trois","quatre","cinq","six","sept","huit","neuf","dix",
+    "onze","douze","treize","quatorze","quinze","seize","dix-sept","dix-huit","dix-neuf"];
+  const T = {2:"vingt",3:"trente",4:"quarante",5:"cinquante",6:"soixante"};
+  function u100(n, more){
+    if(n < 20) return U[n];
+    const t = Math.floor(n/10), u = n%10;
+    if(t === 7 || t === 9){
+      const base = t === 7 ? "soixante" : "quatre-vingt", rem = n - (t === 7 ? 60 : 80);
+      if(t === 7 && rem === 11) return "soixante et onze";
+      return base + "-" + U[rem];
+    }
+    if(t === 8) return u === 0 ? ("quatre-vingt" + (more ? "" : "s")) : ("quatre-vingt-" + U[u]);
+    if(u === 0) return T[t];
+    if(u === 1) return T[t] + " et un";
+    return T[t] + "-" + U[u];
   }
-  if(t === 8) return u === 0 ? ("quatre-vingt" + (more ? "" : "s")) : ("quatre-vingt-" + U[u]);
-  if(u === 0) return T[t];
-  if(u === 1) return T[t] + " et un";
-  return T[t] + "-" + U[u];
-}
-function u1000(n, more){
-  if(n < 100) return u100(n, more);
-  const h = Math.floor(n/100), r = n%100;
-  let s = h === 1 ? "cent" : U[h] + " cent";
-  if(h > 1 && r === 0 && !more) s += "s";
-  if(r) s += " " + u100(r, more);
-  return s;
-}
-function spell(n){
-  if(n === 0) return "zéro";
-  if(n < 1000) return u1000(n, false);
-  if(n < 1e6){
-    const th = Math.floor(n/1000), r = n%1000;
-    let s = th === 1 ? "mille" : u1000(th, true) + " mille";
-    if(r) s += " " + u1000(r, false);
+  function u1000(n, more){
+    if(n < 100) return u100(n, more);
+    const h = Math.floor(n/100), r = n%100;
+    let s = h === 1 ? "cent" : U[h] + " cent";
+    if(h > 1 && r === 0 && !more) s += "s";
+    if(r) s += " " + u100(r, more);
     return s;
   }
-  const m = Math.floor(n/1e6), r = n%1e6;
-  let s = m === 1 ? "un million" : u1000(m, false) + " millions";
-  if(r) s += " " + spell(r);
-  return s;
-}
-function pairWords(p){ return p < 10 ? "zéro " + U[p] : spell(p); }
+  function spell(n){
+    if(n === 0) return "zéro";
+    if(n < 1000) return u1000(n, false);
+    if(n < 1e6){
+      const th = Math.floor(n/1000), r = n%1000;
+      let s = th === 1 ? "mille" : u1000(th, true) + " mille";
+      if(r) s += " " + u1000(r, false);
+      return s;
+    }
+    const m = Math.floor(n/1e6), r = n%1e6;
+    let s = m === 1 ? "un million" : u1000(m, false) + " millions";
+    if(r) s += " " + spell(r);
+    return s;
+  }
+  function pairWords(p){ return p < 10 ? "zéro " + U[p] : spell(p); }
 
-/* ---------- rules ---------- */
-const RULES = {
-  base:  {label:"0 – 20",            trap:0, ex:"seize",                    note:"The building blocks. Everything above 16 is built from these, so a wobble here compounds."},
-  et_un: {label:"« et un »",          trap:0, ex:"vingt et un",              note:"21 through 61 slip <b>et</b> in before <b>un</b>: <em>vingt et un, trente et un, soixante et un</em>. 81 and 91 do not."},
-  diz:   {label:"20 – 69",           trap:0, ex:"quarante-trois",           note:"Straightforward tens. Hyphen between the ten and the unit, no <em>et</em> except before <em>un</em>."},
-  sept:  {label:"70 – 79",           trap:1, ex:"soixante et onze",         note:"French counts 70 as <b>60 + 10</b>. So 71 is <em>soixante et onze</em> — that <em>et</em> belongs to <em>onze</em>, and 72 is <em>soixante-douze</em>, not <em>soixante-dix-deux</em>."},
-  qv:    {label:"80 – 99",           trap:1, ex:"quatre-vingt-dix-sept",    note:"80 is <b>four twenties</b>, and 90 is four twenties plus ten. <em>quatre-vingts</em> keeps its <b>-s</b> only when it stands alone — <em>quatre-vingt-un</em>, <em>quatre-vingt-dix</em> both drop it, and neither takes <em>et</em>."},
-  cent:  {label:"centaines",          trap:0, ex:"deux cents",               note:"<b>cent</b> takes an <b>-s</b> when it's multiplied and nothing follows: <em>deux cents</em>. Put anything after it and the <b>-s</b> goes: <em>deux cent un</em>, <em>deux cent mille</em>."},
-  mille: {label:"milliers",           trap:0, ex:"quatre-vingt mille",       note:"<b>mille</b> is never pluralised — <em>deux mille</em>, <em>cent mille</em>. And <em>vingt</em> and <em>cent</em> drop their <b>-s</b> in front of it: <em>quatre-vingt mille</em>, <em>deux cent mille</em>."},
-  annee: {label:"années",             trap:0, ex:"dix-neuf cent quatre-vingt-quatre", note:"Years from 1100 to 1999 can be read two ways — <em>mille neuf cent…</em> or <em>dix-neuf cent…</em>. Both are accepted here. From 2000 on, only the first."},
-  prix:  {label:"prix",               trap:0, ex:"vingt-quatre euros cinquante", note:"Spoken prices usually drop the word <em>centimes</em>: 24,50 € is <em>vingt-quatre euros cinquante</em>. Saying <em>…cinquante centimes</em> is also correct, just longer."},
-  tel:   {label:"téléphone",          trap:1, ex:"zéro six, douze, …",       note:"French phone numbers are read in <b>pairs</b>, not digit by digit: 06 12 34 56 78 is <em>zéro six, douze, trente-quatre, cinquante-six, soixante-dix-huit</em>. This is where the 70s and 90s ambush you in real life."}
-};
-const SCOPES = {
-  c100:  ["base","et_un","diz","sept","qv"],
-  zone:  ["sept","qv"],
-  grands:["cent","mille"],
-  annees:["annee"],
-  prix:  ["prix"],
-  tel:   ["tel"]
-};
-const rnd = (a,b) => a + Math.floor(Math.random()*(b-a+1));
+  /* ---------- rules ---------- */
+  const RULES = {
+    base:  {label:"0 – 20",            trap:0, ex:"seize",                    note:"The building blocks. Everything above 16 is built from these, so a wobble here compounds."},
+    et_un: {label:"« et un »",          trap:0, ex:"vingt et un",              note:"21 through 61 slip <b>et</b> in before <b>un</b>: <em>vingt et un, trente et un, soixante et un</em>. 81 and 91 do not."},
+    diz:   {label:"20 – 69",           trap:0, ex:"quarante-trois",           note:"Straightforward tens. Hyphen between the ten and the unit, no <em>et</em> except before <em>un</em>."},
+    sept:  {label:"70 – 79",           trap:1, ex:"soixante et onze",         note:"French counts 70 as <b>60 + 10</b>. So 71 is <em>soixante et onze</em> — that <em>et</em> belongs to <em>onze</em>, and 72 is <em>soixante-douze</em>, not <em>soixante-dix-deux</em>."},
+    qv:    {label:"80 – 99",           trap:1, ex:"quatre-vingt-dix-sept",    note:"80 is <b>four twenties</b>, and 90 is four twenties plus ten. <em>quatre-vingts</em> keeps its <b>-s</b> only when it stands alone — <em>quatre-vingt-un</em>, <em>quatre-vingt-dix</em> both drop it, and neither takes <em>et</em>."},
+    cent:  {label:"centaines",          trap:0, ex:"deux cents",               note:"<b>cent</b> takes an <b>-s</b> when it's multiplied and nothing follows: <em>deux cents</em>. Put anything after it and the <b>-s</b> goes: <em>deux cent un</em>, <em>deux cent mille</em>."},
+    mille: {label:"milliers",           trap:0, ex:"quatre-vingt mille",       note:"<b>mille</b> is never pluralised — <em>deux mille</em>, <em>cent mille</em>. And <em>vingt</em> and <em>cent</em> drop their <b>-s</b> in front of it: <em>quatre-vingt mille</em>, <em>deux cent mille</em>."},
+    annee: {label:"années",             trap:0, ex:"dix-neuf cent quatre-vingt-quatre", note:"Years from 1100 to 1999 can be read two ways — <em>mille neuf cent…</em> or <em>dix-neuf cent…</em>. Both are accepted here. From 2000 on, only the first."},
+    prix:  {label:"prix",               trap:0, ex:"vingt-quatre euros cinquante", note:"Spoken prices usually drop the word <em>centimes</em>: 24,50 € is <em>vingt-quatre euros cinquante</em>. Saying <em>…cinquante centimes</em> is also correct, just longer."},
+    tel:   {label:"téléphone",          trap:1, ex:"zéro six, douze, …",       note:"French phone numbers are read in <b>pairs</b>, not digit by digit: 06 12 34 56 78 is <em>zéro six, douze, trente-quatre, cinquante-six, soixante-dix-huit</em>. This is where the 70s and 90s ambush you in real life."}
+  };
+  const SCOPES = {
+    c100:  ["base","et_un","diz","sept","qv"],
+    zone:  ["sept","qv"],
+    grands:["cent","mille"],
+    annees:["annee"],
+    prix:  ["prix"],
+    tel:   ["tel"]
+  };
+  const rnd = (a,b) => a + Math.floor(Math.random()*(b-a+1));
 
-function makeItem(rule){
-  let n, digits, forms, value, unit = "";
-  switch(rule){
-    case "base":  n = rnd(0,20); break;
-    case "et_un": n = [21,31,41,51,61][rnd(0,4)]; break;
-    case "diz":   do { n = rnd(22,69); } while(n%10 === 1); break;
-    case "sept":  n = rnd(70,79); break;
-    case "qv":    n = rnd(80,99); break;
-    case "cent":  n = rnd(100,999); break;
-    case "mille": n = rnd(1000,99999); break;
-    case "annee": {
-      const y = Math.random() < .55 ? rnd(1789,1999) : rnd(2000,2026);
-      const out = [spell(y)];
-      if(y >= 1100 && y < 2000){
-        const h = Math.floor(y/100), r = y%100;
-        out.push(u100(h, r !== 0) + " cent" + (r ? " " + u100(r,false) : ""));
+  function makeItem(rule){
+    let n, digits, forms, value, unit = "";
+    switch(rule){
+      case "base":  n = rnd(0,20); break;
+      case "et_un": n = [21,31,41,51,61][rnd(0,4)]; break;
+      case "diz":   do { n = rnd(22,69); } while(n%10 === 1); break;
+      case "sept":  n = rnd(70,79); break;
+      case "qv":    n = rnd(80,99); break;
+      case "cent":  n = rnd(100,999); break;
+      case "mille": n = rnd(1000,99999); break;
+      case "annee": {
+        const y = Math.random() < .55 ? rnd(1789,1999) : rnd(2000,2026);
+        const out = [spell(y)];
+        if(y >= 1100 && y < 2000){
+          const h = Math.floor(y/100), r = y%100;
+          out.push(u100(h, r !== 0) + " cent" + (r ? " " + u100(r,false) : ""));
+        }
+        return {rule:rule, digits:String(y), forms:out, value:y, unit:""};
       }
-      return {rule:rule, digits:String(y), forms:out, value:y, unit:""};
+      case "prix": {
+        const e = rnd(1,299), c = Math.random() < .35 ? 0 : [5,10,15,20,25,50,75,90,95,99][rnd(0,9)];
+        const eu = spell(e) + " euro" + (e > 1 ? "s" : "");
+        const f = c ? [eu + " " + spell(c), eu + " " + spell(c) + " centime" + (c > 1 ? "s" : "")] : [eu];
+        return {rule:rule, digits:e + (c ? "," + String(c).padStart(2,"0") : ""), forms:f,
+          value:e + c/100, unit:"€", price:true};
+      }
+      case "tel": {
+        const ps = [Math.random() < .5 ? 6 : 7, rnd(0,99), rnd(0,99), rnd(0,99), rnd(0,99)];
+        const d = "0" + ps[0] + " " + ps.slice(1).map(p => String(p).padStart(2,"0")).join(" ");
+        const w = ["zéro " + U[ps[0]]].concat(ps.slice(1).map(pairWords)).join(", ");
+        return {rule:rule, digits:d, forms:[w], value:d.replace(/\s/g,""), unit:"", tel:true};
+      }
     }
-    case "prix": {
-      const e = rnd(1,299), c = Math.random() < .35 ? 0 : [5,10,15,20,25,50,75,90,95,99][rnd(0,9)];
-      const eu = spell(e) + " euro" + (e > 1 ? "s" : "");
-      const f = c ? [eu + " " + spell(c), eu + " " + spell(c) + " centime" + (c > 1 ? "s" : "")] : [eu];
-      return {rule:rule, digits:e + (c ? "," + String(c).padStart(2,"0") : ""), forms:f,
-              value:e + c/100, unit:"€", price:true};
+    return {rule:rule, digits:String(n), forms:[spell(n)], value:n, unit:""};
+  }
+
+  /* ---------- state ---------- */
+  const KEY = "nb-drill-v1";
+  let store = {miss:{}, best:0, n:0, c:0};
+  try{ const r = localStorage.getItem(KEY); if(r) store = Object.assign(store, JSON.parse(r)); }catch(e){}
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(store)); }catch(e){} }
+  function miss(k){ return store.miss[k] || 0; }
+
+  let dir = "mix", scope = "c100", cur = null, answered = false, lastRule = null;
+  let sess = {right:0, total:0, streak:0};
+  const $ = id => document.getElementById(id);
+
+  function norm(s){
+    return (s||"").toLowerCase().replace(/[‘’ʼ`']/g,"")
+            .replace(/[-–—\s]+/g," ").trim().replace(/[.,;!?]+$/,"").trim();
+  }
+  function bare(s){ return norm(s).normalize("NFD").replace(/[\u0300-\u036f]/g,""); }
+  function esc(s){ return String(s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c])); }
+
+  function pickRule(){
+    const ks = SCOPES[scope];
+    const w = ks.map(k => (1 + 1.7*miss(k)) * (k === lastRule && ks.length > 1 ? 0.25 : 1));
+    let t = w.reduce((a,b) => a+b, 0), r = Math.random()*t;
+    for(let i=0;i<ks.length;i++){ r -= w[i]; if(r <= 0) return ks[i]; }
+    return ks[ks.length-1];
+  }
+  function pickDir(item){
+    if(item.tel) return "w2d";              /* hearing a number and writing it is the real skill */
+    if(dir !== "mix") return dir;
+    return Math.random() < .5 ? "d2w" : "w2d";
+  }
+
+  function paintScore(){
+    $("s-right").innerHTML = sess.right + "<small>/" + sess.total + "</small>";
+    $("s-streak").textContent = sess.streak;
+    $("s-best").textContent = store.best;
+    const bad = Object.keys(RULES).filter(k => miss(k) > 0).length;
+    $("s-rules").innerHTML = bad + "<small>/" + Object.keys(RULES).length + "</small>";
+  }
+
+  function next(){
+    answered = false;
+    const rule = pickRule();
+    const item = makeItem(rule);
+    item.dir = pickDir(item);
+    cur = item; lastRule = rule;
+
+    $("card").dataset.state = "";
+    $("fb").innerHTML = "";
+    const zone = $("zone");
+
+    if(item.dir === "d2w"){
+      $("qtype").textContent = "Chiffres → lettres";
+      $("prompt").className = "digits";
+      $("prompt").innerHTML = esc(item.digits) + (item.unit ? '<span class="unit">' + item.unit + '</span>' : "");
+      $("ask").textContent = "Write it out in words.";
+      zone.innerHTML = '<div class="answer"><input type="text" id="in" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="en toutes lettres"><button class="btn" id="go">Vérifier</button></div>';
+    } else {
+      $("qtype").textContent = "Lettres → chiffres";
+      $("prompt").className = "words";
+      $("prompt").textContent = item.forms[0];
+      $("ask").textContent = item.tel
+              ? "Write the phone number in digits."
+              : (item.price ? "Write the price in digits." : "Write it in digits.");
+      zone.innerHTML = '<div class="answer"><input type="text" id="in" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="' + (item.tel ? "06 …" : "123") + '"><button class="btn" id="go">Vérifier</button></div>';
     }
-    case "tel": {
-      const ps = [Math.random() < .5 ? 6 : 7, rnd(0,99), rnd(0,99), rnd(0,99), rnd(0,99)];
-      const d = "0" + ps[0] + " " + ps.slice(1).map(p => String(p).padStart(2,"0")).join(" ");
-      const w = ["zéro " + U[ps[0]]].concat(ps.slice(1).map(pairWords)).join(", ");
-      return {rule:rule, digits:d, forms:[w], value:d.replace(/\s/g,""), unit:"", tel:true};
+    const card = $("card"); card.classList.remove("anim"); void card.offsetWidth; card.classList.add("anim");
+    $("in").focus();
+    $("go").onclick = submit;
+    $("in").onkeydown = e => { if(e.key === "Enter") submit(); };
+  }
+  function submit(){ if(!answered && $("in")) grade($("in").value); }
+
+  function grade(raw){
+    if(answered) return;
+    answered = true;
+    const it = cur;
+    let verdict = "faux";
+
+    if(it.dir === "d2w"){
+      const n = norm(raw), b = bare(raw);
+      if(it.forms.some(f => norm(f) === n)) verdict = "juste";
+      else if(n && it.forms.some(f => bare(f) === b)) verdict = "presque";
+    } else {
+      const d = String(raw).replace(/[€\s]/g,"").replace(",", ".");
+      if(it.tel) verdict = (d.replace(/\D/g,"") === it.value) ? "juste" : "faux";
+      else if(it.price) verdict = (Math.abs(parseFloat(d) - it.value) < 0.005) ? "juste" : "faux";
+      else verdict = (/^\d+$/.test(d.replace(/\D/g,"")) && parseInt(d.replace(/\D/g,""),10) === it.value) ? "juste" : "faux";
     }
-  }
-  return {rule:rule, digits:String(n), forms:[spell(n)], value:n, unit:""};
-}
 
-/* ---------- state ---------- */
-const KEY = "nb-drill-v1";
-let store = {miss:{}, best:0};
-try{ const r = localStorage.getItem(KEY); if(r) store = Object.assign(store, JSON.parse(r)); }catch(e){}
-function save(){ try{ localStorage.setItem(KEY, JSON.stringify(store)); }catch(e){} }
-function miss(k){ return store.miss[k] || 0; }
+    $("in").disabled = true;
+    $("go").style.display = "none";
+    sess.total++;
+    store.n = (store.n || 0) + 1;
+    if(verdict === "juste"){
+      store.c = (store.c || 0) + 1;
+      sess.right++; sess.streak++;
+      if(sess.streak > store.best) store.best = sess.streak;
+      if(miss(it.rule) > 0) store.miss[it.rule] = Math.max(0, miss(it.rule) - 0.5);
+    } else {
+      sess.streak = 0;
+      store.miss[it.rule] = miss(it.rule) + (verdict === "presque" ? 0.5 : 1);
+    }
+    save(); paintScore(); paintReview();
 
-let dir = "mix", scope = "c100", cur = null, answered = false, lastRule = null;
-let sess = {right:0, total:0, streak:0};
-const $ = id => document.getElementById(id);
+    $("card").dataset.state = verdict;
+    const label = verdict === "juste" ? "Juste" : (verdict === "presque" ? "Presque — accent" : "Faux");
+    const R = RULES[it.rule];
+    let sol = it.dir === "d2w"
+            ? it.forms[0] + (it.forms.length > 1 ? '<span class="rulebadge"> &nbsp;·&nbsp; aussi : ' + esc(it.forms[1]) + '</span>' : "")
+            : esc(it.digits) + (it.unit ? " " + it.unit : "");
 
-function norm(s){
-  return (s||"").toLowerCase().replace(/[‘’ʼ`']/g,"")
-    .replace(/[-–—\s]+/g," ").trim().replace(/[.,;!?]+$/,"").trim();
-}
-function bare(s){ return norm(s).normalize("NFD").replace(/[\u0300-\u036f]/g,""); }
-function esc(s){ return String(s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c])); }
-
-function pickRule(){
-  const ks = SCOPES[scope];
-  const w = ks.map(k => (1 + 1.7*miss(k)) * (k === lastRule && ks.length > 1 ? 0.25 : 1));
-  let t = w.reduce((a,b) => a+b, 0), r = Math.random()*t;
-  for(let i=0;i<ks.length;i++){ r -= w[i]; if(r <= 0) return ks[i]; }
-  return ks[ks.length-1];
-}
-function pickDir(item){
-  if(item.tel) return "w2d";              /* hearing a number and writing it is the real skill */
-  if(dir !== "mix") return dir;
-  return Math.random() < .5 ? "d2w" : "w2d";
-}
-
-function paintScore(){
-  $("s-right").innerHTML = sess.right + "<small>/" + sess.total + "</small>";
-  $("s-streak").textContent = sess.streak;
-  $("s-best").textContent = store.best;
-  const bad = Object.keys(RULES).filter(k => miss(k) > 0).length;
-  $("s-rules").innerHTML = bad + "<small>/" + Object.keys(RULES).length + "</small>";
-}
-
-function next(){
-  answered = false;
-  const rule = pickRule();
-  const item = makeItem(rule);
-  item.dir = pickDir(item);
-  cur = item; lastRule = rule;
-
-  $("card").dataset.state = "";
-  $("fb").innerHTML = "";
-  const zone = $("zone");
-
-  if(item.dir === "d2w"){
-    $("qtype").textContent = "Chiffres → lettres";
-    $("prompt").className = "digits";
-    $("prompt").innerHTML = esc(item.digits) + (item.unit ? '<span class="unit">' + item.unit + '</span>' : "");
-    $("ask").textContent = "Write it out in words.";
-    zone.innerHTML = '<div class="answer"><input type="text" id="in" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="en toutes lettres"><button class="btn" id="go">Vérifier</button></div>';
-  } else {
-    $("qtype").textContent = "Lettres → chiffres";
-    $("prompt").className = "words";
-    $("prompt").textContent = item.forms[0];
-    $("ask").textContent = item.tel
-      ? "Write the phone number in digits."
-      : (item.price ? "Write the price in digits." : "Write it in digits.");
-    zone.innerHTML = '<div class="answer"><input type="text" id="in" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="' + (item.tel ? "06 …" : "123") + '"><button class="btn" id="go">Vérifier</button></div>';
-  }
-  const card = $("card"); card.classList.remove("anim"); void card.offsetWidth; card.classList.add("anim");
-  $("in").focus();
-  $("go").onclick = submit;
-  $("in").onkeydown = e => { if(e.key === "Enter") submit(); };
-}
-function submit(){ if(!answered && $("in")) grade($("in").value); }
-
-function grade(raw){
-  if(answered) return;
-  answered = true;
-  const it = cur;
-  let verdict = "faux";
-
-  if(it.dir === "d2w"){
-    const n = norm(raw), b = bare(raw);
-    if(it.forms.some(f => norm(f) === n)) verdict = "juste";
-    else if(n && it.forms.some(f => bare(f) === b)) verdict = "presque";
-  } else {
-    const d = String(raw).replace(/[€\s]/g,"").replace(",", ".");
-    if(it.tel) verdict = (d.replace(/\D/g,"") === it.value) ? "juste" : "faux";
-    else if(it.price) verdict = (Math.abs(parseFloat(d) - it.value) < 0.005) ? "juste" : "faux";
-    else verdict = (/^\d+$/.test(d.replace(/\D/g,"")) && parseInt(d.replace(/\D/g,""),10) === it.value) ? "juste" : "faux";
+    let html = '<div class="fb anim"><div class="verdict">' +
+            '<span class="mark" data-s="' + verdict + '">' + label + '</span>' +
+            '<span class="sol">' + sol + '</span></div>';
+    if(verdict !== "juste" && norm(raw)) html += '<div class="yours">tu as écrit&nbsp; <s>' + esc(String(raw).trim()) + '</s></div>';
+    if(verdict !== "juste"){
+      html += '<div class="note"><span class="rulebadge">' + R.label + '</span><br>' + R.note + '</div>';
+    }
+    html += '<div class="row" style="margin-top:4px"><button class="btn ghost" id="nx">Suivant &nbsp;↵</button></div></div>';
+    $("fb").innerHTML = html;
+    $("nx").onclick = next;
   }
 
-  $("in").disabled = true;
-  $("go").style.display = "none";
-  sess.total++;
-  if(verdict === "juste"){
-    sess.right++; sess.streak++;
-    if(sess.streak > store.best) store.best = sess.streak;
-    if(miss(it.rule) > 0) store.miss[it.rule] = Math.max(0, miss(it.rule) - 0.5);
-  } else {
-    sess.streak = 0;
-    store.miss[it.rule] = miss(it.rule) + (verdict === "presque" ? 0.5 : 1);
+  function paintReview(){
+    const ks = Object.keys(RULES).filter(k => miss(k) > 0).sort((a,b) => miss(b) - miss(a));
+    $("revtitle").textContent = ks.length ? "À revoir — " + ks.length + " règle" + (ks.length > 1 ? "s" : "") : "À revoir";
+    $("revbody").innerHTML = ks.length
+            ? ks.map(k => '<tr><td class="rl">' + RULES[k].label + '</td><td class="ex">' + RULES[k].ex +
+                    '</td><td class="n">' + (Math.round(miss(k)*10)/10) + '</td></tr>').join("")
+            : '<tr><td colspan="3" class="empty">Nothing missed yet. Miss one and the rule behind it lands here, then comes up more often.</td></tr>';
   }
-  save(); paintScore(); paintReview();
 
-  $("card").dataset.state = verdict;
-  const label = verdict === "juste" ? "Juste" : (verdict === "presque" ? "Presque — accent" : "Faux");
-  const R = RULES[it.rule];
-  let sol = it.dir === "d2w"
-    ? it.forms[0] + (it.forms.length > 1 ? '<span class="rulebadge"> &nbsp;·&nbsp; aussi : ' + esc(it.forms[1]) + '</span>' : "")
-    : esc(it.digits) + (it.unit ? " " + it.unit : "");
-
-  let html = '<div class="fb anim"><div class="verdict">' +
-    '<span class="mark" data-s="' + verdict + '">' + label + '</span>' +
-    '<span class="sol">' + sol + '</span></div>';
-  if(verdict !== "juste" && norm(raw)) html += '<div class="yours">tu as écrit&nbsp; <s>' + esc(String(raw).trim()) + '</s></div>';
-  if(verdict !== "juste"){
-    html += '<div class="note"><span class="rulebadge">' + R.label + '</span><br>' + R.note + '</div>';
+  function wire(attr, set){
+    document.querySelectorAll("[" + attr + "]").forEach(b => {
+      b.onclick = () => {
+        set(b.getAttribute(attr));
+        document.querySelectorAll("[" + attr + "]").forEach(o => o.setAttribute("aria-pressed", String(o === b)));
+        applyLock(); next();
+      };
+    });
   }
-  html += '<div class="row" style="margin-top:4px"><button class="btn ghost" id="nx">Suivant &nbsp;↵</button></div></div>';
-  $("fb").innerHTML = html;
-  $("nx").onclick = next;
-}
+  function applyLock(){
+    const locked = (scope === "tel");
+    document.querySelectorAll("[data-dir]").forEach(o => { o.disabled = locked; });
+    $("dirhint").textContent = locked ? "Phone numbers are drilled one way: hear the words, write the digits." : "";
+  }
+  wire("data-dir", x => { dir = x; });
+  wire("data-scope", x => { scope = x; });
+  $("reset").onclick = () => { store = {miss:{}, best:0, n:0, c:0}; sess = {right:0, total:0, streak:0}; save(); paintScore(); paintReview(); next(); };
+  document.addEventListener("keydown", e => { if(e.key === "Enter" && answered){ e.preventDefault(); next(); } });
 
-function paintReview(){
-  const ks = Object.keys(RULES).filter(k => miss(k) > 0).sort((a,b) => miss(b) - miss(a));
-  $("revtitle").textContent = ks.length ? "À revoir — " + ks.length + " règle" + (ks.length > 1 ? "s" : "") : "À revoir";
-  $("revbody").innerHTML = ks.length
-    ? ks.map(k => '<tr><td class="rl">' + RULES[k].label + '</td><td class="ex">' + RULES[k].ex +
-        '</td><td class="n">' + (Math.round(miss(k)*10)/10) + '</td></tr>').join("")
-    : '<tr><td colspan="3" class="empty">Nothing missed yet. Miss one and the rule behind it lands here, then comes up more often.</td></tr>';
-}
+  paintScore(); paintReview(); applyLock(); next();
 
-function wire(attr, set){
-  document.querySelectorAll("[" + attr + "]").forEach(b => {
-    b.onclick = () => {
-      set(b.getAttribute(attr));
-      document.querySelectorAll("[" + attr + "]").forEach(o => o.setAttribute("aria-pressed", String(o === b)));
-      applyLock(); next();
-    };
-  });
-}
-function applyLock(){
-  const locked = (scope === "tel");
-  document.querySelectorAll("[data-dir]").forEach(o => { o.disabled = locked; });
-  $("dirhint").textContent = locked ? "Phone numbers are drilled one way: hear the words, write the digits." : "";
-}
-wire("data-dir", x => { dir = x; });
-wire("data-scope", x => { scope = x; });
-$("reset").onclick = () => { store = {miss:{}, best:0}; sess = {right:0, total:0, streak:0}; save(); paintScore(); paintReview(); next(); };
-document.addEventListener("keydown", e => { if(e.key === "Enter" && answered){ e.preventDefault(); next(); } });
+  const PC_ORDER = ["aimer", "aller", "s'amuser", "apprendre", "attendre", "avoir", "arriver", "boire", "choisir", "comprendre", "conduire", "connaître", "construire", "courir", "croire", "demander", "descendre", "devenir", "devoir", "dire", "disparaître", "dormir", "écrire", "entendre", "entrer", "envoyer", "éteindre", "être", "faire", "finir", "goûter", "s'habiller", "s'intéresser (à)", "se lever", "lire", "manger", "mettre", "monter", "mourir", "naître", "offrir", "ouvrir", "parler", "partir", "peindre", "plaire", "pleuvoir", "pouvoir", "prendre", "se promener", "recevoir", "rendre", "répondre", "rentrer", "rester", "retourner", "revenir", "rire", "savoir", "sortir", "se souvenir", "tenir", "tomber", "tourner", "vendre", "venir", "vivre", "voir", "voler", "vouloir"];
+  const NB_ORDER = ["base", "et_un", "diz", "sept", "qv", "cent", "mille", "annee", "prix", "tel"];
+  const NB_LABEL = {"base": "0 – 20", "et_un": "« et un »", "diz": "20 – 69", "sept": "70 – 79", "qv": "80 – 99", "cent": "centaines", "mille": "milliers", "annee": "années", "prix": "prix", "tel": "téléphone"};
 
-paintScore(); paintReview(); applyLock(); next();
+  /* ---------- bilan : export & share ---------- */
+  const B32 = "0123456789abcdefghijklmnopqrstuv";
+  const PC_KEY = "pc-drill-v3", NB_KEY = "nb-drill-v1";
+  const BILAN_URL = "https://french-practice.com/bilan/";
+  function bRead(k){ try{ const r = localStorage.getItem(k); return r ? JSON.parse(r) : null; }catch(e){ return null; } }
+  function bQ(v){ return B32[Math.max(0, Math.min(31, Math.round((v||0)*2)))]; }
+  function b36(n){ return Math.max(0, Math.round(n||0)).toString(36); }
+
+  function bPayload(){
+    const out = [], pc = bRead(PC_KEY), nb = bRead(NB_KEY);
+    if(pc && pc.n > 0) out.push("pc" + b36(pc.best) + "." + b36(pc.n) + "." + b36(pc.c) + "." +
+            PC_ORDER.map(k => bQ((((pc.stats||{})[k])||{}).miss)).join(""));
+    if(nb && nb.n > 0) out.push("nb" + b36(nb.best) + "." + b36(nb.n) + "." + b36(nb.c) + "." +
+            NB_ORDER.map(k => bQ((nb.miss||{})[k])).join(""));
+    return out.length ? "1~" + out.join("~") : "";
+  }
+  function bSummary(){
+    const L = ["Bilan — french-practice.com"], pc = bRead(PC_KEY), nb = bRead(NB_KEY);
+    const pct = (c,n) => Math.round(100*(c||0)/n) + " %";
+    if(pc && pc.n > 0){
+      L.push("", "Passé composé : " + pc.n + " questions, " + (pc.c||0) + " justes (" + pct(pc.c,pc.n) +
+              "), meilleure série " + (pc.best||0));
+      const bad = PC_ORDER.filter(k => ((((pc.stats||{})[k])||{}).miss||0) > 0)
+              .sort((a,b) => pc.stats[b].miss - pc.stats[a].miss).slice(0,12);
+      L.push(bad.length ? "À revoir : " + bad.map(k => k + " (" + (Math.round(pc.stats[k].miss*10)/10) + ")").join(", ")
+              : "Rien à revoir.");
+    }
+    if(nb && nb.n > 0){
+      L.push("", "Les nombres : " + nb.n + " questions, " + (nb.c||0) + " justes (" + pct(nb.c,nb.n) +
+              "), meilleure série " + (nb.best||0));
+      const bad = NB_ORDER.filter(k => ((nb.miss||{})[k]||0) > 0).sort((a,b) => nb.miss[b] - nb.miss[a]);
+      L.push(bad.length ? "À revoir : " + bad.map(k => NB_LABEL[k] + " (" + (Math.round(nb.miss[k]*10)/10) + ")").join(", ")
+              : "Rien à revoir.");
+    }
+    L.push("", "(Chiffres de ce navigateur uniquement.)");
+    return L.join("\n");
+  }
+  function bMsg(t){ const e = document.getElementById("bmsg"); e.textContent = t; clearTimeout(bMsg.t);
+    bMsg.t = setTimeout(() => { if(e.textContent === t) e.textContent = ""; }, 5000); }
+  function bCopy(text, ok){
+    if(navigator.clipboard && window.isSecureContext){
+      navigator.clipboard.writeText(text).then(() => bMsg(ok)).catch(() => bManual(text));
+    } else bManual(text);
+  }
+  function bManual(text){
+    const ta = document.getElementById("bfall");
+    ta.hidden = false; ta.value = text; ta.focus(); ta.select();
+    bMsg("Copie automatique indisponible ici — sélectionne le texte ci-dessous.");
+  }
+  document.getElementById("bshare").onclick = function(){
+    const p = bPayload();
+    if(!p) return bMsg("Rien à partager pour l'instant — réponds à quelques questions d'abord.");
+    bCopy(BILAN_URL + "#" + p, "Lien copié. Colle-le dans un message à ton prof.");
+  };
+  document.getElementById("bcopy").onclick = function(){
+    if(!bPayload()) return bMsg("Rien à partager pour l'instant — réponds à quelques questions d'abord.");
+    bCopy(bSummary(), "Résumé copié.");
+  };
 
 </script>
 </body>
