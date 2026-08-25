@@ -27,6 +27,7 @@ Self-scoring French grammar drills. Static site on GitHub Pages, custom domain v
 ├── README.md
 ├── passe-compose/index.html
 ├── nombres/index.html
+├── interrogatives/index.html
 └── bilan/index.html    renders a shared summary from the URL fragment
 ```
 
@@ -58,6 +59,7 @@ State shape in `localStorage`:
 
 - `pc-drill-v3` → `{stats: {<verb>: {seen, miss}}, best, n, c}`
 - `nb-drill-v1` → `{miss: {<rule>: n}, best, n, c}`
+- `in-drill-v1` → `{miss: {<rule>: n}, best, n, c}`
 
 `n` = questions answered, `c` = correct. Missed items are weighted up on selection
 (`1 + 1.7 × miss`) and decay by 0.5 on a correct answer. Accent-only errors score `presque`,
@@ -78,18 +80,22 @@ Two buttons under every review table: plain-text summary, and a link to
 `/bilan/#<payload>`. Both read `localStorage` for *all* drills, so one export covers everything.
 
 ```
-1~pc<best>.<answered>.<correct>.<70 chars>~nb<best>.<answered>.<correct>.<10 chars>
+1~pc<best>.<answered>.<correct>.<70 chars>~nb<best>.<answered>.<correct>.<10 chars>~in<best>.<answered>.<correct>.<6 chars>
 ```
 
 Counts are base-36. Each miss is one base-32 char holding `round(miss * 2)`, capped at 31, in the
-fixed order of `PC_ORDER` / `NB_ORDER`. `<correct>` is stored as **correct + 1** so `0` means
+fixed order of `PC_ORDER` / `NB_ORDER` / `IN_ORDER`. `<correct>` is stored as **correct + 1** so `0` means
 "not recorded" — the report then omits the score line rather than showing a fake 0%.
 
 **The payload must stay in the fragment.** Browsers never transmit it, so results never reach
 GitHub's logs. Do not move it to a query string.
 
-**Changing `PC_ORDER` or `NB_ORDER` — including adding one verb — invalidates every existing
-link.** Bump the leading version number when you do, so old links fail cleanly instead of
+Segments are keyed by tag, and the decoder looks the tag up in a map — an unknown tag throws
+rather than silently decoding against the wrong key list. Adding a whole new drill therefore does
+*not* need a version bump; old links keep working.
+
+**Changing `PC_ORDER`, `NB_ORDER` or `IN_ORDER` — including adding one verb — invalidates every
+existing link.** Bump the leading version number when you do, so old links fail cleanly instead of
 decoding into the wrong rows.
 
 Nothing is authenticated. This is a "here's what I'm struggling with" artifact, not a grade.
@@ -124,6 +130,11 @@ Minimum bar for any change to answer-checking:
   had neither and the export silently refused. Always derive or default when reading old state.
 - **Accents are spelling.** `vecu` ≠ `vécu`. Grade them, but distinguish accent-only misses from
   real ones — that distinction is pedagogically the point.
+- **The question mark is meaningful in the interrogatives drill.** The house rule is to trim
+  trailing punctuation, but the intonation question (*Tu aimes ça ?*) is distinguished from the
+  plain statement by the `?` alone — so that one form requires it, while *est-ce que* and inversion
+  do not, being marked by word order. Trimming it there would have accepted a statement as a
+  question.
 - **Normalize forgivingly, then compare exactly.** Hyphens/spaces equivalent, curly quotes and
   apostrophes stripped, trailing punctuation and whitespace trimmed — trim *before* stripping
   trailing punctuation or `"sept . "` fails.
@@ -142,10 +153,11 @@ Minimum bar for any change to answer-checking:
 
 ## Backlog
 
-- **Interrogatives** — the intended next drill. Design note: *Tu aimes ça ?* / *Est-ce que tu
-  aimes ça ?* / *Aimes-tu ça ?* are all correct, so each item needs a set of accepted forms, and
-  inversion needs the euphonic `-t-` (*a-t-il*, *aime-t-elle*). Grade the form the user chose
-  rather than demanding one. This is the hardest drill to build fairly — take the time.
+- **Interrogatives — built** (`/interrogatives/`), yes/no questions only. Still open: question
+  words (*où / quand / comment / pourquoi / combien / que*), which are harder because the accepted
+  set differs per word — *Tu vas où ?* is fine in situ but *Tu viens pourquoi ?* is marginal, and
+  *que* becomes *quoi* in situ (*Tu fais quoi ?*). Also open: noun subjects, which need a resumptive
+  pronoun in the inversion (*Marie aime-t-elle ça ?*), and negative questions.
 - **Futur simple** on the same 70 verbs. Endings are uniform; the content is irregular stems
   (*aller→ir-*, *voir→verr-*, *vouloir→voudr-*, *venir→viendr-*). Those stems are also the
   conditional, so one drill covers two tenses.

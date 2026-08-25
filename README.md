@@ -16,6 +16,8 @@ no JavaScript bundle. Open one locally and it works exactly as it does on the si
 │   └── index.html      Passé composé · participes passés
 ├── nombres/
 │   └── index.html      Les nombres
+├── interrogatives/
+│   └── index.html      Les interrogatives
 └── bilan/
     └── index.html      renders a shared summary from the URL fragment
 ```
@@ -96,6 +98,47 @@ are 0–20, « et un », 20–69, 70–79, 80–99, centaines, milliers, années
 Belgian and Swiss *septante / octante / huitante / nonante* are noted in the page footer but
 not drilled.
 
+### Les interrogatives
+
+Turning a statement into a question — the point being that French offers **three correct forms
+at once**, and the drill accepts all of them:
+
+| form | example |
+| --- | --- |
+| intonation | *Tu aimes ça ?* |
+| *est-ce que* | *Est-ce que tu aimes ça ?* |
+| inversion | *Aimes-tu ça ?* |
+
+Answer with whichever you like and it grades the one you chose, showing all three afterwards
+with yours marked. The four **Forme** chips let you drill one form deliberately; answering a
+targeted question with a different valid form is never marked wrong — it scores *presque* and
+says which form was asked for.
+
+**Scopes:** everything, 3rd person (where the euphonic `-t-` applies), élision, `je`, and your
+own past mistakes.
+
+**What's tracked** is the rule, not the verb: intonation, *est-ce que*, élision, inversion,
+`-t-` euphonique, and the `je` forms.
+
+**Marking:**
+
+- The euphonic **-t-** is required exactly where French requires it — *aime-t-il*, *a-t-elle*,
+  *va-t-on*, but *est-il*, *prend-elle*, *finit-il*. The rule is whether the verb form ends in a
+  vowel, not the verb's group.
+- *Est-ce que* elides before a vowel: *est-ce qu'il*, *est-ce qu'elles*. So does *je*:
+  *j'ai*, *j'aime*, *j'habite*.
+- Inversion with **je** is only offered for the fixed forms that survive in modern French
+  (*suis-je*, *ai-je*, *puis-je*, *dois-je*, *sais-je*). The literary *aimé-je* is accepted if
+  you write it, but never taught or demanded.
+- The **intonation form requires its question mark**, because that is the only thing separating
+  it from the plain statement. The other two forms are marked by word order, so there the `?`
+  is optional.
+- Hyphens, spaces and apostrophes are all treated as equivalent, so *aimes-tu*, *aimes tu* and
+  *aimestu* are the same answer. Accent-only errors score *presque*, as elsewhere.
+
+Question words (*où*, *quand*, *pourquoi*…), noun subjects and negative questions are not
+drilled yet — see the backlog in `CLAUDE.md`.
+
 ## Sharing a bilan
 
 Each drill has two export buttons under its review table:
@@ -109,7 +152,7 @@ The payload is deliberately tiny — roughly 100 characters for both drills — 
 **fragment**, which browsers never send to the server. The figures travel only inside the message
 the student sends; GitHub never sees them, and `/bilan/` stores nothing when it renders them.
 
-Format: `1~pc<best>.<answered>.<correct>.<70 chars>~nb<best>.<answered>.<correct>.<10 chars>`.
+Format: `1~pc<best>.<answered>.<correct>.<70 chars>~nb<best>.<answered>.<correct>.<10 chars>~in<best>.<answered>.<correct>.<6 chars>`.
 Counts are base-36 and each miss count is one base-32 character holding `round(miss * 2)`, capped
 at 31, in the fixed key order defined by `PC_ORDER` / `NB_ORDER`. `<correct>` is stored as
 *correct + 1* so that `0` can mean "not recorded" — progress saved before the counters existed

@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Les Interrogatives</title>
+  <meta name="description" content="Drill French questions three ways: intonation, est-ce que, and inversion with the euphonic -t-. No account, nothing sent to a server.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%94%A2%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,600;6..96,700&family=IBM+Plex+Mono:wght@400;500;600&family=Libre+Franklin:wght@400;500;600;700&display=swap">
+  <style>
+
+    :root{
+      --paper:#EFEEE9; --card:#FBFAF7; --ink:#171B24; --ink-soft:#5B6070; --ink-faint:#8C8F9C;
+      --rule:#D8D6CE; --rule-soft:#E5E3DC;
+      --avoir:#3B4A8C; --avoir-wash:#E4E5F1;
+      --etre:#A5661C; --etre-wash:#F3E6D5;
+      --juste:#2E6B4A; --juste-wash:#E0EDE5;
+      --faux:#A93B2C; --faux-wash:#F5E3DF;
+      --presque:#8A6A12; --presque-wash:#F3EBD6;
+      --shadow:0 1px 0 rgba(23,27,36,.05), 0 12px 30px -18px rgba(23,27,36,.35);
+    }
+    @media (prefers-color-scheme: dark){
+      :root:not([data-theme="light"]){
+        --paper:#13151B; --card:#1B1E27; --ink:#E9E7E1; --ink-soft:#A2A6B4; --ink-faint:#767A88;
+        --rule:#2E323D; --rule-soft:#252932;
+        --avoir:#98A4EA; --avoir-wash:#242A45;
+        --etre:#E0A85E; --etre-wash:#3A2E1C;
+        --juste:#6FC095; --juste-wash:#1C3128;
+        --faux:#E5877B; --faux-wash:#3A2320;
+        --presque:#D8B75C; --presque-wash:#332C18;
+        --shadow:0 1px 0 rgba(0,0,0,.3), 0 12px 30px -18px rgba(0,0,0,.8);
+      }
+    }
+    :root[data-theme="dark"]{
+      --paper:#13151B; --card:#1B1E27; --ink:#E9E7E1; --ink-soft:#A2A6B4; --ink-faint:#767A88;
+      --rule:#2E323D; --rule-soft:#252932;
+      --avoir:#98A4EA; --avoir-wash:#242A45;
+      --etre:#E0A85E; --etre-wash:#3A2E1C;
+      --juste:#6FC095; --juste-wash:#1C3128;
+      --faux:#E5877B; --faux-wash:#3A2320;
+      --presque:#D8B75C; --presque-wash:#332C18;
+      --shadow:0 1px 0 rgba(0,0,0,.3), 0 12px 30px -18px rgba(0,0,0,.8);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; background:var(--paper); color:var(--ink);
+      font-family:"Libre Franklin",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased;
+    }
+    .wrap{max-width:700px; margin:0 auto; padding:40px 20px 72px; display:flex; flex-direction:column; gap:26px}
+
+    /* ---- masthead ---- */
+    .mast{display:flex; flex-direction:column; gap:8px; border-bottom:1px solid var(--rule); padding-bottom:18px}
+    .eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11px; letter-spacing:.16em;
+      text-transform:uppercase; color:var(--ink-faint)}
+    h1{font-family:"Bodoni Moda",Didot,Georgia,serif; font-weight:600; font-size:clamp(34px,7vw,50px);
+      line-height:1; margin:0; letter-spacing:-.01em; text-wrap:balance}
+    h1 .acc{font-style:italic; font-weight:400}
+    .sub{font-size:14px; color:var(--ink-soft); max-width:56ch}
+    .sub b{color:var(--ink); font-weight:600}
+
+    /* ---- control rows ---- */
+    .controls{display:flex; flex-direction:column; gap:10px}
+    .row{display:flex; flex-wrap:wrap; align-items:center; gap:8px}
+    .rowlab{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.14em;
+      text-transform:uppercase; color:var(--ink-faint); width:62px; flex:none}
+    .chip{
+      font:inherit; font-size:13px; font-weight:500; color:var(--ink-soft);
+      background:transparent; border:1px solid var(--rule); border-radius:2px;
+      padding:5px 11px; cursor:pointer; transition:background .14s, color .14s, border-color .14s;
+    }
+    .chip:hover:not(:disabled){border-color:var(--ink-faint); color:var(--ink)}
+    .chip:disabled{opacity:.38; cursor:not-allowed}
+    .hint{font-size:12px; color:var(--ink-faint); font-style:italic}
+
+    .chip[aria-pressed="true"]{background:var(--ink); border-color:var(--ink); color:var(--paper)}
+    .chip:focus-visible,.opt:focus-visible,.btn:focus-visible,input:focus-visible{outline:2px solid var(--avoir); outline-offset:2px}
+
+    /* ---- scoreboard ---- */
+    .score{display:flex; align-items:stretch; border:1px solid var(--rule); border-radius:3px;
+      background:var(--card); box-shadow:var(--shadow); overflow:hidden}
+    .stat{flex:1; padding:11px 14px; display:flex; flex-direction:column; gap:1px; border-right:1px solid var(--rule-soft)}
+    .stat:last-child{border-right:none}
+    .stat .k{font-family:"IBM Plex Mono",monospace; font-size:9.5px; letter-spacing:.14em;
+      text-transform:uppercase; color:var(--ink-faint)}
+    .stat .v{font-family:"Bodoni Moda",Georgia,serif; font-size:24px; font-weight:600; line-height:1.1;
+      font-variant-numeric:tabular-nums}
+    .stat .v small{font-family:"IBM Plex Mono",monospace; font-size:12px; font-weight:400; color:var(--ink-faint)}
+
+    /* ---- question card ---- */
+    .card{min-height:340px; background:var(--card); border:1px solid var(--rule); border-radius:3px;
+      box-shadow:var(--shadow); padding:28px 26px 26px; display:flex; flex-direction:column; gap:18px;
+      position:relative; overflow:hidden}
+    .card::before{content:""; position:absolute; inset:0 auto 0 0; width:3px; background:var(--rule); transition:background .2s}
+    .card[data-state="juste"]::before{background:var(--juste)}
+    .card[data-state="faux"]::before{background:var(--faux)}
+    .card[data-state="presque"]::before{background:var(--presque)}
+    .qhead{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+    .qhead .spacer{flex:1}
+    .qtype{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.16em;
+      text-transform:uppercase; color:var(--ink-faint)}
+
+
+    .prompt{font-family:"Bodoni Moda",Didot,Georgia,serif; font-size:clamp(28px,6vw,40px);
+      line-height:1.12; font-weight:600; letter-spacing:-.01em; margin:0; text-wrap:balance}
+    .prompt .cue{color:var(--ink-faint); font-weight:400; font-style:italic}
+    .prompt .slot{color:var(--ink-faint); font-family:"IBM Plex Mono",monospace; font-size:.62em;
+      font-weight:400; letter-spacing:.04em; vertical-align:.08em}
+    .ask{font-size:13.5px; color:var(--ink-soft); margin:-8px 0 0}
+
+    /* answer input */
+    .answer{display:flex; gap:8px; flex-wrap:wrap}
+    input[type=text]{
+      flex:1 1 220px; min-width:0; font-family:"IBM Plex Mono",monospace; font-size:17px;
+      color:var(--ink); background:var(--paper); border:1px solid var(--rule); border-radius:2px;
+      padding:11px 13px;
+    }
+    input[type=text]::placeholder{color:var(--ink-faint)}
+    input[type=text]:disabled{opacity:.75}
+    .btn{font:inherit; font-size:14px; font-weight:600; padding:11px 20px; border-radius:2px; cursor:pointer;
+      background:var(--ink); color:var(--paper); border:1px solid var(--ink); transition:opacity .14s}
+    .btn:hover{opacity:.85}
+    .btn.ghost{background:transparent; color:var(--ink-soft); border-color:var(--rule)}
+    .btn.ghost:hover{color:var(--ink); border-color:var(--ink-faint)}
+
+    /* feedback */
+    .fb{display:flex; flex-direction:column; gap:9px; border-top:1px solid var(--rule-soft); padding-top:16px}
+    .verdict{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap}
+    .mark{font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:600; letter-spacing:.14em;
+      text-transform:uppercase; padding:3px 9px; border-radius:2px}
+    .mark[data-s="juste"]{color:var(--juste); background:var(--juste-wash)}
+    .mark[data-s="faux"]{color:var(--faux); background:var(--faux-wash)}
+    .mark[data-s="presque"]{color:var(--presque); background:var(--presque-wash)}
+    .sol{font-family:"IBM Plex Mono",monospace; font-size:18px; font-weight:500}
+    .yours{font-family:"IBM Plex Mono",monospace; font-size:13px; color:var(--ink-faint)}
+    .yours s{text-decoration-color:var(--faux)}
+    .note{font-size:13.5px; color:var(--ink-soft); border-left:2px solid var(--rule); padding-left:11px; max-width:62ch}
+    .note b{color:var(--ink); font-weight:600}
+
+    /* ---- review ---- */
+    .review{display:flex; flex-direction:column; gap:12px}
+    .review h2{font-family:"Bodoni Moda",Georgia,serif; font-size:20px; font-weight:600; margin:0}
+    .tablewrap{overflow-x:auto; border:1px solid var(--rule); border-radius:3px; background:var(--card)}
+    table{width:100%; border-collapse:collapse; font-size:14px}
+    th,td{text-align:left; padding:8px 12px; border-bottom:1px solid var(--rule-soft); white-space:nowrap}
+    th{font-family:"IBM Plex Mono",monospace; font-size:9.5px; letter-spacing:.13em; text-transform:uppercase;
+      color:var(--ink-faint); font-weight:500}
+    tr:last-child td{border-bottom:none}
+    td.inf{font-weight:600}
+    td.pp{font-family:"IBM Plex Mono",monospace}
+    td.ax{font-family:"IBM Plex Mono",monospace; font-size:12px}
+    td.n{font-family:"IBM Plex Mono",monospace; color:var(--faux); font-variant-numeric:tabular-nums}
+    .empty{padding:14px 12px; font-size:13.5px; color:var(--ink-faint)}
+    footer{font-size:12px; color:var(--ink-faint); border-top:1px solid var(--rule); padding-top:14px; line-height:1.6}
+    @keyframes rise{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
+    .anim{animation:rise .22s ease-out}
+    @media (prefers-reduced-motion:reduce){.anim{animation:none}}
+    @media (max-width:520px){ .rowlab{width:100%} .opts{grid-template-columns:1fr} }
+    /* ---- numbers-specific ---- */
+    .tagline{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.1em;
+      text-transform:uppercase; color:var(--ink-faint); border:1px solid var(--rule);
+      border-radius:99px; padding:2px 9px}
+    .tagline[data-trap="1"]{color:var(--etre); border-color:var(--etre)}
+    .digits{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums;
+      font-size:clamp(40px,10vw,64px); font-weight:500; letter-spacing:.01em; line-height:1.05; margin:0}
+    .digits .unit{font-size:.42em; color:var(--ink-faint); font-weight:400; margin-left:.18em}
+    .words{font-family:"Bodoni Moda",Didot,Georgia,serif; font-size:clamp(26px,5.4vw,38px);
+      font-weight:600; line-height:1.15; letter-spacing:-.01em; margin:0; text-wrap:balance}
+    .sol{font-family:"IBM Plex Mono",monospace; font-size:17px; font-weight:500; line-height:1.4}
+    .rulebadge{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.12em;
+      text-transform:uppercase; color:var(--ink-faint)}
+    td.rl{font-weight:600}
+    td.ex{font-family:"IBM Plex Mono",monospace; color:var(--ink-soft); font-size:13px}
+
+    .exphelp{font-size:12.5px; color:var(--ink-faint); max-width:62ch; margin:0; line-height:1.5}
+    .exphelp b{color:var(--ink-soft)}
+    .fallback{width:100%; font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ink);
+      background:var(--paper); border:1px solid var(--rule); border-radius:2px; padding:9px; resize:vertical}
+  </style>
+<body>
+<div class="wrap">
+  <header class="mast">
+    <div class="eyebrow">Interrogatives &middot; trois formes</div>
+    <h1>Les <span class="acc">interrogatives</span></h1>
+    <p class="sub">Turn a statement into a question. <b>Three forms are correct at once</b> &mdash; intonation,
+      <em>est-ce que</em>, and inversion &mdash; so answer with whichever you want and it grades the one you chose.
+      Miss the <b>rule</b> behind it and that rule starts coming up more often.</p>
+  </header>
+
+  <div class="controls">
+    <div class="row">
+      <span class="rowlab">Forme</span>
+      <button class="chip" data-mode="free" aria-pressed="true">Au choix</button>
+      <button class="chip" data-mode="intonation" aria-pressed="false">Intonation</button>
+      <button class="chip" data-mode="estce" aria-pressed="false">Est-ce que</button>
+      <button class="chip" data-mode="inversion" aria-pressed="false">Inversion</button>
+      <span class="hint" id="modehint"></span>
+    </div>
+    <div class="row">
+      <span class="rowlab">Port&eacute;e</span>
+      <button class="chip" data-scope="all" aria-pressed="true">Tout</button>
+      <button class="chip" data-scope="t" aria-pressed="false">3<sup>e</sup> pers. (-t-)</button>
+      <button class="chip" data-scope="elide" aria-pressed="false">&Eacute;lision</button>
+      <button class="chip" data-scope="je" aria-pressed="false">je</button>
+      <button class="chip" data-scope="bad" aria-pressed="false">Mes erreurs</button>
+    </div>
+  </div>
+
+  <div class="score">
+    <div class="stat"><span class="k">Juste</span><span class="v" id="s-right">0<small>/0</small></span></div>
+    <div class="stat"><span class="k">S&eacute;rie</span><span class="v" id="s-streak">0</span></div>
+    <div class="stat"><span class="k">Record</span><span class="v" id="s-best">0</span></div>
+    <div class="stat"><span class="k">R&egrave;gles &agrave; revoir</span><span class="v" id="s-rules">0<small>/6</small></span></div>
+  </div>
+
+  <main class="card" id="card" data-state="">
+    <div class="qhead"><span class="qtype" id="qtype">Au choix</span></div>
+    <p class="ask" id="ask">Pose la question&nbsp;:</p>
+    <p class="prompt" id="prompt">&mdash;</p>
+    <div id="zone"></div>
+    <div id="fb"></div>
+  </main>
+
+  <section class="review">
+    <h2 id="revtitle">&Agrave; revoir</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>R&egrave;gle</th><th>Exemple</th><th>Rat&eacute;s</th></tr></thead>
+        <tbody id="revbody"></tbody>
+      </table>
+    </div>
+    <div class="row">
+      <button class="btn" id="bshare">Copier le lien du bilan</button>
+      <button class="btn ghost" id="bcopy">Copier le r&eacute;sum&eacute;</button>
+      <button class="btn ghost" id="reset">Effacer mes statistiques</button>
+    </div>
+    <p class="hint" id="bmsg"></p>
+    <p class="exphelp">Le lien ouvre un bilan lisible &mdash; utile &agrave; envoyer &agrave; un prof. Rien n'est
+      transmis &agrave; un serveur&nbsp;: tes chiffres voyagent uniquement dans le message que tu envoies, et
+      ne concernent que <b>ce navigateur</b>.</p>
+    <textarea id="bfall" class="fallback" rows="4" readonly hidden></textarea>
+  </section>
+
+  <footer>
+    All three forms are correct French and all three are accepted. The inversion takes a euphonic
+    <b>-t-</b> only when the verb form ends in a vowel &mdash; <em>aime-t-il</em>, <em>a-t-elle</em>,
+    <em>va-t-on</em>, but <em>est-il</em>, <em>prend-elle</em>. <em>Est-ce que</em> elides before a vowel:
+    <em>est-ce qu'il</em>. Inversion with <em>je</em> survives only in fixed forms (<em>suis-je</em>,
+    <em>ai-je</em>, <em>puis-je</em>, <em>dois-je</em>, <em>sais-je</em>); the literary <em>aim&eacute;-je</em>
+    is accepted but not taught. Because intonation is marked in writing by the question mark alone,
+    that form needs its <b>?</b>&nbsp;&mdash; the other two are marked by word order.
+  </footer>
+</div>
+<script>
+  /* ---------- data ---------- */
+  const SUBJ = {
+    je:    {w:"je",   inv:false},
+    tu:    {w:"tu",   inv:true},
+    il:    {w:"il",   inv:true, t:true},
+    elle:  {w:"elle", inv:true, t:true},
+    on:    {w:"on",   inv:true, t:true},
+    nous:  {w:"nous", inv:true},
+    vous:  {w:"vous", inv:true},
+    ils:   {w:"ils",  inv:true},
+    elles: {w:"elles",inv:true}
+  };
+  const ELIDE = ["il","elle","on","ils","elles"];
+
+  const VERBS = [
+    {inf:"aimer",     c:["le café","cette chanson","voyager"], f:{je:"aime",tu:"aimes",il:"aime",elle:"aime",on:"aime",nous:"aimons",vous:"aimez",ils:"aiment",elles:"aiment"}},
+    {inf:"parler",    c:["français","trop vite","de politique"], f:{je:"parle",tu:"parles",il:"parle",elle:"parle",on:"parle",nous:"parlons",vous:"parlez",ils:"parlent",elles:"parlent"}},
+    {inf:"manger",    c:["de la viande","à midi","ici"], f:{je:"mange",tu:"manges",il:"mange",elle:"mange",on:"mange",nous:"mangeons",vous:"mangez",ils:"mangent",elles:"mangent"}},
+    {inf:"habiter",   c:["à Paris","ici","loin"], f:{je:"habite",tu:"habites",il:"habite",elle:"habite",on:"habite",nous:"habitons",vous:"habitez",ils:"habitent",elles:"habitent"}},
+    {inf:"travailler",c:["le samedi","à la maison","tard"], f:{je:"travaille",tu:"travailles",il:"travaille",elle:"travaille",on:"travaille",nous:"travaillons",vous:"travaillez",ils:"travaillent",elles:"travaillent"}},
+    {inf:"écouter",c:["la radio","cette émission","de la musique"], f:{je:"écoute",tu:"écoutes",il:"écoute",elle:"écoute",on:"écoute",nous:"écoutons",vous:"écoutez",ils:"écoutent",elles:"écoutent"}},
+    {inf:"finir",     c:["à six heures","le travail","bientôt"], f:{je:"finis",tu:"finis",il:"finit",elle:"finit",on:"finit",nous:"finissons",vous:"finissez",ils:"finissent",elles:"finissent"}},
+    {inf:"choisir",   c:["le menu","toujours le même","vite"], f:{je:"choisis",tu:"choisis",il:"choisit",elle:"choisit",on:"choisit",nous:"choisissons",vous:"choisissez",ils:"choisissent",elles:"choisissent"}},
+    {inf:"partir",    c:["demain","sans moi","à huit heures"], f:{je:"pars",tu:"pars",il:"part",elle:"part",on:"part",nous:"partons",vous:"partez",ils:"partent",elles:"partent"}},
+    {inf:"dormir",    c:["bien","assez","tard le dimanche"], f:{je:"dors",tu:"dors",il:"dort",elle:"dort",on:"dort",nous:"dormons",vous:"dormez",ils:"dorment",elles:"dorment"}},
+    {inf:"être",  c:["en retard","d'accord","prêt"], f:{je:"suis",tu:"es",il:"est",elle:"est",on:"est",nous:"sommes",vous:"êtes",ils:"sont",elles:"sont"}, jeInv:"suis-je"},
+    {inf:"avoir",     c:["le temps","faim","une voiture"], f:{je:"ai",tu:"as",il:"a",elle:"a",on:"a",nous:"avons",vous:"avez",ils:"ont",elles:"ont"}, jeInv:"ai-je"},
+    {inf:"aller",     c:["au marché","bien","à la gare"], f:{je:"vais",tu:"vas",il:"va",elle:"va",on:"va",nous:"allons",vous:"allez",ils:"vont",elles:"vont"}},
+    {inf:"faire",     c:["la cuisine","du sport","attention"], f:{je:"fais",tu:"fais",il:"fait",elle:"fait",on:"fait",nous:"faisons",vous:"faites",ils:"font",elles:"font"}},
+    {inf:"prendre",   c:["le train","du sucre","le bus"], f:{je:"prends",tu:"prends",il:"prend",elle:"prend",on:"prend",nous:"prenons",vous:"prenez",ils:"prennent",elles:"prennent"}},
+    {inf:"vouloir",   c:["partir","du café","venir"], f:{je:"veux",tu:"veux",il:"veut",elle:"veut",on:"veut",nous:"voulons",vous:"voulez",ils:"veulent",elles:"veulent"}},
+    {inf:"pouvoir",   c:["attendre","venir","aider"], f:{je:"peux",tu:"peux",il:"peut",elle:"peut",on:"peut",nous:"pouvons",vous:"pouvez",ils:"peuvent",elles:"peuvent"}, jeInv:"puis-je"},
+    {inf:"savoir",    c:["nager","la réponse","conduire"], f:{je:"sais",tu:"sais",il:"sait",elle:"sait",on:"sait",nous:"savons",vous:"savez",ils:"savent",elles:"savent"}, jeInv:"sais-je"},
+    {inf:"devoir",    c:["partir","travailler","y aller"], f:{je:"dois",tu:"dois",il:"doit",elle:"doit",on:"doit",nous:"devons",vous:"devez",ils:"doivent",elles:"doivent"}, jeInv:"dois-je"},
+    {inf:"venir",     c:["avec nous","ce soir","souvent"], f:{je:"viens",tu:"viens",il:"vient",elle:"vient",on:"vient",nous:"venons",vous:"venez",ils:"viennent",elles:"viennent"}},
+    {inf:"boire",     c:["du thé","assez d'eau","du vin"], f:{je:"bois",tu:"bois",il:"boit",elle:"boit",on:"boit",nous:"buvons",vous:"buvez",ils:"boivent",elles:"boivent"}},
+    {inf:"dire",      c:["la vérité","quelque chose","non"], f:{je:"dis",tu:"dis",il:"dit",elle:"dit",on:"dit",nous:"disons",vous:"dites",ils:"disent",elles:"disent"}},
+    {inf:"lire",      c:["le journal","ce livre","beaucoup"], f:{je:"lis",tu:"lis",il:"lit",elle:"lit",on:"lit",nous:"lisons",vous:"lisez",ils:"lisent",elles:"lisent"}},
+    {inf:"connaître",c:["cette ville","mon frère","la règle"], f:{je:"connais",tu:"connais",il:"connaît",elle:"connaît",on:"connaît",nous:"connaissons",vous:"connaissez",ils:"connaissent",elles:"connaissent"}}
+  ];
+
+  /* Fixed rule order — the bilan payload depends on it. Changing it invalidates links. */
+  const IN_ORDER = ["intonation","estce","elision","inversion","euph","je"];
+  const IN_LABEL = {
+    intonation:"Intonation ( ? )", estce:"Est-ce que", elision:"Élision (est-ce qu')",
+    inversion:"Inversion", euph:"-t- euphonique", je:"je (formes figées)"
+  };
+  const IN_EX = {
+    intonation:"Tu aimes ça ?", estce:"Est-ce que tu aimes ça ?", elision:"Est-ce qu'il aime ça ?",
+    inversion:"Aimes-tu ça ?", euph:"Aime-t-il ça ?", je:"Puis-je entrer ?"
+  };
+
+  /* ---------- forms ---------- */
+  function needsT(form){ return /[ae]$/.test(form); }
+  function cap(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
+
+  /* je elides before a vowel: j'ai, j'aime, j'habite. Every h-initial verb in this
+     table is an h muet; an h aspiré verb would have to be excluded here. */
+  function elidesJe(v){ return /^[aeiouyâàéèêëîïôöùûü]/i.test(v) || /^h/i.test(v); }
+  function subjOf(subjKey, v){
+    return (subjKey === "je" && elidesJe(v)) ? "j'" : SUBJ[subjKey].w + " ";
+  }
+  function forms(item){
+    const s = SUBJ[item.subjKey], v = item.verb.f[item.subjKey];
+    const tail = item.rest ? " " + item.rest : "";
+    const intonation = cap(subjOf(item.subjKey, v) + v) + tail + " ?";
+    const estce = ELIDE.indexOf(s.w) >= 0
+      ? "Est-ce qu'" + s.w + " " + v + tail + " ?"
+      : "Est-ce que " + subjOf(item.subjKey, v) + v + tail + " ?";
+    let inversion = null;
+    if(s.inv){
+      const link = (s.t && needsT(v)) ? "-t-" : "-";
+      inversion = cap(v) + link + s.w + tail + " ?";
+    } else if(item.subjKey === "je" && item.verb.jeInv){
+      inversion = cap(item.verb.jeInv) + tail + " ?";
+    }
+    return {intonation:intonation, estce:estce, inversion:inversion};
+  }
+  /* Valid but never taught: the literary je-inversion (aimé-je). Accept it anyway. */
+  function extraAccepted(item){
+    if(item.subjKey !== "je" || item.verb.jeInv) return [];
+    const v = item.verb.f.je, tail = item.rest ? " " + item.rest : "";
+    const lit = /e$/.test(v) ? v.replace(/e$/, "é") : v;
+    return [cap(lit) + "-je" + tail + " ?"];
+  }
+  function statement(item){
+    const v = item.verb.f[item.subjKey];
+    return cap(subjOf(item.subjKey, v) + v) + (item.rest ? " " + item.rest : "") + ".";
+  }
+
+  /* ---------- grading ---------- */
+  function norm(s){
+    return String(s).replace(/[‘’ʼ`´]/g, "'").replace(/[–—−]/g, "-")
+      .toLowerCase().replace(/\s+/g, " ").trim().replace(/[?!.…]+$/, "").trim();
+  }
+  function squash(s){ return norm(s).replace(/['\-\s]/g, ""); }
+  function deacc(s){ return s.normalize("NFD").replace(/[̀-ͯ]/g, ""); }
+  function hasQMark(s){ return /\?\s*$/.test(String(s).trim()); }
+  function lev(a,b){
+    const m=a.length,n=b.length; if(!m)return n; if(!n)return m;
+    let p=[],c=[],i,j; for(j=0;j<=n;j++) p[j]=j;
+    for(i=1;i<=m;i++){ c[0]=i;
+      for(j=1;j<=n;j++) c[j]=Math.min(p[j]+1, c[j-1]+1, p[j-1]+(a.charAt(i-1)===b.charAt(j-1)?0:1));
+      const t=p; p=c; c=t;
+    }
+    return p[n];
+  }
+  function grade(item, answer){
+    const f = forms(item), qm = hasQMark(answer);
+    let cands = [["intonation",f.intonation],["estce",f.estce]];
+    if(f.inversion) cands.push(["inversion",f.inversion]);
+    extraAccepted(item).forEach(function(x){ cands.push(["inversion",x]); });
+    const a = squash(answer);
+    if(!a) return {verdict:"faux", matched:null, why:null};
+    for(let i=0;i<cands.length;i++){
+      if(squash(cands[i][1]) !== a) continue;
+      if(cands[i][0] === "intonation" && !qm) return {verdict:"faux", matched:"intonation", why:"qmark"};
+      return {verdict:"juste", matched:cands[i][0], why:null};
+    }
+    const ad = deacc(a);
+    for(let i=0;i<cands.length;i++){
+      if(deacc(squash(cands[i][1])) !== ad) continue;
+      if(cands[i][0] === "intonation" && !qm) return {verdict:"faux", matched:"intonation", why:"qmark"};
+      return {verdict:"presque", matched:cands[i][0], why:null};
+    }
+    let best=null, bd=1e9;
+    for(let i=0;i<cands.length;i++){ const d=lev(ad, deacc(squash(cands[i][1]))); if(d<bd){bd=d;best=cands[i][0];} }
+    return {verdict:"faux", matched:best, why:null};
+  }
+  /* Which rule does this answer exercise? Drives the review table and the weighting. */
+  function ruleOf(item, matched){
+    if(item.subjKey === "je") return "je";
+    if(matched === "inversion"){
+      const s = SUBJ[item.subjKey];
+      return (s.t && needsT(item.verb.f[item.subjKey])) ? "euph" : "inversion";
+    }
+    if(matched === "estce") return ELIDE.indexOf(item.subjKey) >= 0 ? "elision" : "estce";
+    return "intonation";
+  }
+
+  /* ---------- state ---------- */
+  const KEY = "in-drill-v1";
+  const $ = function(id){ return document.getElementById(id); };
+  let store = {miss:{}, best:0, n:0, c:0};
+  try{
+    const raw = localStorage.getItem(KEY);
+    if(raw){ const p = JSON.parse(raw) || {};
+      store = {miss: p.miss || {}, best: p.best || 0, n: p.n || 0, c: p.c || 0}; }
+  }catch(e){}
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(store)); }catch(e){} }
+
+  let sess = {right:0, total:0, streak:0};
+  let mode = "free", scope = "all", cur = null, answered = false;
+
+  /* ---------- item selection ---------- */
+  function subjPool(){
+    if(scope === "je")    return ["je"];
+    if(scope === "elide") return ELIDE.slice();
+    if(scope === "t")     return ["il","elle","on"];
+    return Object.keys(SUBJ);
+  }
+  function candidates(){
+    const subs = subjPool(), out = [];
+    for(let i=0;i<VERBS.length;i++) for(let j=0;j<subs.length;j++){
+      const v = VERBS[i], sk = subs[j];
+      if(scope === "t" && !needsT(v.f[sk])) continue;           /* -t- scope: vowel-final only */
+      if(mode === "inversion" && !SUBJ[sk].inv && !v.jeInv) continue;  /* never demand an impossible form */
+      out.push({verb:v, subjKey:sk});
+    }
+    return out;
+  }
+  function weightOf(cand){
+    const item = {subjKey:cand.subjKey, verb:cand.verb, rest:""};
+    let w = 0, seen = 0;
+    const rules = mode === "free"
+      ? [ruleOf(item,"intonation"), ruleOf(item,"estce"), ruleOf(item,"inversion")]
+      : [ruleOf(item, mode)];
+    for(let i=0;i<rules.length;i++){ w += (store.miss[rules[i]] || 0); seen++; }
+    return 1 + 1.7 * (w / Math.max(1,seen));
+  }
+  function pick(){
+    let pool = candidates();
+    if(scope === "bad"){
+      const hot = pool.filter(function(c){
+        const item={subjKey:c.subjKey,verb:c.verb,rest:""};
+        const rs = [ruleOf(item,"intonation"),ruleOf(item,"estce"),ruleOf(item,"inversion")];
+        return rs.some(function(r){ return (store.miss[r]||0) > 0; });
+      });
+      if(hot.length) pool = hot;
+    }
+    if(!pool.length) pool = candidates();
+    let tot = 0; const ws = pool.map(function(c){ const w = weightOf(c); tot += w; return w; });
+    let r = Math.random() * tot, k = 0;
+    while(k < pool.length && r > ws[k]){ r -= ws[k]; k++; }
+    const c = pool[Math.min(k, pool.length-1)];
+    const rest = c.verb.c[Math.floor(Math.random() * c.verb.c.length)];
+    return {subjKey:c.subjKey, verb:c.verb, rest:rest};
+  }
+
+  /* ---------- painting ---------- */
+  const MODE_LABEL = {free:"Au choix", intonation:"Intonation", estce:"Est-ce que", inversion:"Inversion"};
+  const MODE_HINT = {
+    free:"Réponds avec la forme que tu veux — les trois comptent.",
+    intonation:"Garde l'ordre sujet-verbe et marque la question par le point d'interrogation.",
+    estce:"Commence par « Est-ce que » — et pense à l'élision devant une voyelle.",
+    inversion:"Verbe puis pronom, avec un trait d'union — et le -t- euphonique si besoin."
+  };
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){
+    return ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"})[c]; }); }
+
+  function paintScore(){
+    $("s-right").innerHTML = sess.right + "<small>/" + sess.total + "</small>";
+    $("s-streak").textContent = sess.streak;
+    $("s-best").textContent = store.best || 0;
+    let bad = 0;
+    for(let i=0;i<IN_ORDER.length;i++) if((store.miss[IN_ORDER[i]]||0) > 0) bad++;
+    $("s-rules").innerHTML = bad + "<small>/" + IN_ORDER.length + "</small>";
+  }
+  function paintReview(){
+    const rows = IN_ORDER.filter(function(k){ return (store.miss[k]||0) > 0; })
+      .sort(function(a,b){ return store.miss[b] - store.miss[a]; });
+    $("revbody").innerHTML = rows.length ? rows.map(function(k){
+      return '<tr><td>' + esc(IN_LABEL[k]) + '</td><td class="ex">' + esc(IN_EX[k]) +
+             '</td><td class="n">' + (Math.round(store.miss[k]*10)/10) + '</td></tr>';
+    }).join("") : '<tr><td colspan="3" class="empty">Rien à revoir — pour l\'instant.</td></tr>';
+  }
+  function next(){
+    cur = pick(); answered = false;
+    $("card").setAttribute("data-state","");
+    $("qtype").textContent = MODE_LABEL[mode];
+    $("prompt").textContent = statement(cur);
+    $("zone").innerHTML = '<div class="answer"><input type="text" id="ans" ' +
+      'autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" ' +
+      'placeholder="' + (mode === "estce" ? "Est-ce que…" : mode === "inversion" ? "Verbe-pronom…" : "ta question…") + '">' +
+      '<button class="btn" id="go">Vérifier</button></div>';
+    $("fb").innerHTML = "";
+    $("go").onclick = submit;
+    $("ans").onkeydown = function(e){ if(e.key === "Enter"){ e.preventDefault(); submit(); } };
+    $("ans").focus();
+  }
+  function solutionHTML(item, matched){
+    const f = forms(item), bits = [];
+    const rowFor = function(name, label, txt){
+      if(!txt) return;
+      const badge = (name === matched)
+        ? '<span class="mark" data-s="juste">' + label + '</span>'
+        : '<span class="rulebadge">' + label + '</span>';
+      bits.push('<div class="sol">' + badge + ' ' + esc(txt) + '</div>');
+    };
+    rowFor("intonation","intonation",f.intonation);
+    rowFor("estce","est-ce que",f.estce);
+    rowFor("inversion","inversion",f.inversion);
+    return bits.join("");
+  }
+  function submit(){
+    if(answered || !cur) return;
+    const el = $("ans"); if(!el) return;
+    const raw = el.value;
+    if(!squash(raw)) return;
+    answered = true;
+
+    let g = grade(cur, raw);
+    let note = "";
+    /* A targeted mode asked for one form. Another valid form is still correct French,
+       so it is never "faux" — it is a presque with an explicit nudge. */
+    if(g.verdict === "juste" && mode !== "free" && g.matched !== mode){
+      g = {verdict:"presque", matched:g.matched, why:"otherform"};
+      note = "C'est du bon français, mais l'exercice demandait la forme « " + MODE_LABEL[mode] + " ».";
+    }
+    if(g.why === "qmark") note = "Sans point d'interrogation, c'est la phrase de départ — pas une question.";
+    if(g.verdict === "presque" && !note) note = "Presque : c'est une histoire d'accent.";
+
+    const rule = ruleOf(cur, (mode === "free" ? (g.matched || "intonation") : mode));
+    sess.total++;
+    store.n = (store.n || 0) + 1;
+    if(g.verdict === "juste"){
+      sess.right++; sess.streak++; store.c = (store.c || 0) + 1;
+      if(store.miss[rule]) { store.miss[rule] = Math.max(0, store.miss[rule] - 0.5);
+                             if(!store.miss[rule]) delete store.miss[rule]; }
+      if(sess.streak > (store.best||0)) store.best = sess.streak;
+    } else if(g.verdict === "presque"){
+      sess.streak = 0;
+      store.miss[rule] = (store.miss[rule] || 0) + 0.5;
+    } else {
+      sess.streak = 0;
+      store.miss[rule] = (store.miss[rule] || 0) + 1;
+    }
+    save(); paintScore(); paintReview();
+
+    $("card").setAttribute("data-state", g.verdict);
+    const head = g.verdict === "juste" ? "Juste" : g.verdict === "presque" ? "Presque" : "Faux";
+    $("fb").innerHTML =
+      '<div class="fb anim"><div class="verdict"><span class="mark" data-s="' + g.verdict + '">' +
+        head + '</span></div>' +
+      (g.verdict === "juste" ? "" :
+        '<div class="yours">tu as écrit&nbsp; <s>' + esc(raw.trim()) + '</s></div>') +
+      (note ? '<p class="note">' + esc(note) + '</p>' : "") +
+      solutionHTML(cur, g.matched) +
+      '<div class="row" style="margin-top:4px"><button class="btn ghost" id="nx">Suivant &nbsp;↵</button></div></div>';
+    $("nx").onclick = next;
+    $("nx").focus();
+  }
+
+  /* ---------- controls ---------- */
+  function wire(attr, fn){
+    const els = document.querySelectorAll("[" + attr + "]");
+    for(let i=0;i<els.length;i++){
+      (function(b){
+        b.onclick = function(){
+          for(let j=0;j<els.length;j++) els[j].setAttribute("aria-pressed","false");
+          b.setAttribute("aria-pressed","true");
+          fn(b.getAttribute(attr));
+          next();
+        };
+      })(els[i]);
+    }
+  }
+  wire("data-mode", function(x){ mode = x; $("modehint").textContent = MODE_HINT[x] || ""; });
+  wire("data-scope", function(x){ scope = x; });
+  $("modehint").textContent = MODE_HINT.free;
+
+  $("reset").onclick = function(){
+    store = {miss:{}, best:0, n:0, c:0}; sess = {right:0, total:0, streak:0};
+    save(); paintScore(); paintReview(); next();
+  };
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Enter" && answered){ e.preventDefault(); next(); }
+  });
+
+  /* The export covers every drill, so this page needs the other drills' key orders too.
+     Copied verbatim from the other drills — changing either invalidates existing links. */
+  const PC_ORDER = ["aimer", "aller", "s'amuser", "apprendre", "attendre", "avoir", "arriver", "boire", "choisir", "comprendre", "conduire", "connaître", "construire", "courir", "croire", "demander", "descendre", "devenir", "devoir", "dire", "disparaître", "dormir", "écrire", "entendre", "entrer", "envoyer", "éteindre", "être", "faire", "finir", "goûter", "s'habiller", "s'intéresser (à)", "se lever", "lire", "manger", "mettre", "monter", "mourir", "naître", "offrir", "ouvrir", "parler", "partir", "peindre", "plaire", "pleuvoir", "pouvoir", "prendre", "se promener", "recevoir", "rendre", "répondre", "rentrer", "rester", "retourner", "revenir", "rire", "savoir", "sortir", "se souvenir", "tenir", "tomber", "tourner", "vendre", "venir", "vivre", "voir", "voler", "vouloir"];
+  const NB_ORDER = ["base", "et_un", "diz", "sept", "qv", "cent", "mille", "annee", "prix", "tel"];
+  const NB_LABEL = {"base": "0 – 20", "et_un": "« et un »", "diz": "20 – 69", "sept": "70 – 79", "qv": "80 – 99", "cent": "centaines", "mille": "milliers", "annee": "années", "prix": "prix", "tel": "téléphone"};
+
+  /* ---------- bilan : export & share ---------- */
+  const B32 = "0123456789abcdefghijklmnopqrstuv";
+  const PC_KEY = "pc-drill-v3", NB_KEY = "nb-drill-v1", IN_KEY = "in-drill-v1";
+  const BILAN_URL = "https://french-practice.com/bilan/";
+  function bRead(k){ try{ const r = localStorage.getItem(k); return r ? JSON.parse(r) : null; }catch(e){ return null; } }
+  function bQ(v){ return B32[Math.max(0, Math.min(31, Math.round((v||0)*2)))]; }
+  function b36(n){ return Math.max(0, Math.round(n||0)).toString(36); }
+
+  /* `c` is stored as correct+1 so that 0 can mean "not recorded" — stats saved before
+     the counters existed still export their misses, just without a score line. */
+  function bLoad(key, keys, missOf){
+    const s = bRead(key); if(!s) return null;
+    let n = s.n, c = s.c;
+    if(typeof n !== "number"){
+      n = 0; keys.forEach(k => { n += ((((s.stats||{})[k])||{}).seen) || 0; });
+      c = null;
+    }
+    const miss = {}; let any = false;
+    keys.forEach(k => { const v = missOf(s, k) || 0; if(v > 0){ miss[k] = v; any = true; } });
+    if(!n && !any) return null;
+    return {best: s.best || 0, n: n, c: (typeof c === "number" ? c : null), miss: miss};
+  }
+  function bPc(){ return bLoad(PC_KEY, PC_ORDER, (s,k) => (((s.stats||{})[k])||{}).miss); }
+  function bNb(){ return bLoad(NB_KEY, NB_ORDER, (s,k) => (s.miss||{})[k]); }
+  function bIn(){ return bLoad(IN_KEY, IN_ORDER, (s,k) => (s.miss||{})[k]); }
+
+  function bEnc(tag, r, keys){
+    return tag + b36(r.best) + "." + b36(r.n) + "." + b36(r.c === null ? 0 : r.c + 1) + "." +
+            keys.map(k => bQ(r.miss[k])).join("");
+  }
+  function bPayload(){
+    const out = [], pc = bPc(), nb = bNb(), inn = bIn();
+    if(pc) out.push(bEnc("pc", pc, PC_ORDER));
+    if(nb) out.push(bEnc("nb", nb, NB_ORDER));
+    if(inn) out.push(bEnc("in", inn, IN_ORDER));
+    return out.length ? "1~" + out.join("~") : "";
+  }
+  function bScore(r){
+    const s = r.n + " question" + (r.n === 1 ? "" : "s");
+    return (r.c === null ? s : s + ", " + r.c + " justes (" + Math.round(100*r.c/Math.max(1,r.n)) + " %)")
+            + ", meilleure série " + r.best;
+  }
+  function bSummary(){
+    const L = ["Bilan — french-practice.com"], pc = bPc(), nb = bNb(), inn = bIn();
+    if(pc){
+      L.push("", "Passé composé : " + bScore(pc));
+      const bad = Object.keys(pc.miss).sort((a,b) => pc.miss[b] - pc.miss[a]).slice(0,12);
+      L.push(bad.length ? "À revoir : " + bad.map(k => k + " (" + (Math.round(pc.miss[k]*10)/10) + ")").join(", ")
+              : "Rien à revoir.");
+    }
+    if(nb){
+      L.push("", "Les nombres : " + bScore(nb));
+      const bad = Object.keys(nb.miss).sort((a,b) => nb.miss[b] - nb.miss[a]);
+      L.push(bad.length ? "À revoir : " + bad.map(k => NB_LABEL[k] + " (" + (Math.round(nb.miss[k]*10)/10) + ")").join(", ")
+              : "Rien à revoir.");
+    }
+    if(inn){
+      L.push("", "Les interrogatives : " + bScore(inn));
+      const bad = Object.keys(inn.miss).sort((a,b) => inn.miss[b] - inn.miss[a]);
+      L.push(bad.length ? "À revoir : " + bad.map(k => IN_LABEL[k] + " (" + (Math.round(inn.miss[k]*10)/10) + ")").join(", ")
+              : "Rien à revoir.");
+    }
+    L.push("", "(Chiffres de ce navigateur uniquement.)");
+    return L.join("\n");
+  }
+  function bMsg(t){
+    const e = document.getElementById("bmsg");
+    e.textContent = t; clearTimeout(bMsg.t);
+    bMsg.t = setTimeout(() => { if(e.textContent === t) e.textContent = ""; }, 6000);
+  }
+  function bManual(text, why){
+    const ta = document.getElementById("bfall");
+    ta.hidden = false; ta.value = text; ta.focus(); ta.select();
+    bMsg(why + " Sélectionne le texte ci-dessous et copie-le à la main.");
+  }
+  function bCopy(text, ok){
+    document.getElementById("bfall").hidden = true;
+    if(navigator.clipboard && window.isSecureContext){
+      navigator.clipboard.writeText(text).then(() => bMsg(ok),
+              () => bManual(text, "Le navigateur a refusé la copie automatique."));
+    } else {
+      bManual(text, "La copie automatique demande une page en https.");
+    }
+  }
+  document.getElementById("bshare").addEventListener("click", function(){
+    const p = bPayload();
+    if(!p) return bMsg("Rien à partager pour l'instant — réponds à quelques questions d'abord.");
+    bCopy(BILAN_URL + "#" + p, "Lien copié. Colle-le dans un message à ton prof.");
+  });
+  document.getElementById("bcopy").addEventListener("click", function(){
+    if(!bPayload()) return bMsg("Rien à partager pour l'instant — réponds à quelques questions d'abord.");
+    bCopy(bSummary(), "Résumé copié.");
+  });
+
+  paintScore(); paintReview(); next();
+</script>
+
+</body>
+</html>

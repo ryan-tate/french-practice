@@ -209,6 +209,12 @@
 <script>
     const PC_ORDER = ["aimer", "aller", "s'amuser", "apprendre", "attendre", "avoir", "arriver", "boire", "choisir", "comprendre", "conduire", "connaître", "construire", "courir", "croire", "demander", "descendre", "devenir", "devoir", "dire", "disparaître", "dormir", "écrire", "entendre", "entrer", "envoyer", "éteindre", "être", "faire", "finir", "goûter", "s'habiller", "s'intéresser (à)", "se lever", "lire", "manger", "mettre", "monter", "mourir", "naître", "offrir", "ouvrir", "parler", "partir", "peindre", "plaire", "pleuvoir", "pouvoir", "prendre", "se promener", "recevoir", "rendre", "répondre", "rentrer", "rester", "retourner", "revenir", "rire", "savoir", "sortir", "se souvenir", "tenir", "tomber", "tourner", "vendre", "venir", "vivre", "voir", "voler", "vouloir"];
     const NB_ORDER = ["base", "et_un", "diz", "sept", "qv", "cent", "mille", "annee", "prix", "tel"];
+    const IN_ORDER = ["intonation","estce","elision","inversion","euph","je"];
+    const IN_LABEL = {intonation:"Intonation ( ? )", estce:"Est-ce que", elision:"\u00c9lision (est-ce qu')",
+        inversion:"Inversion", euph:"-t- euphonique", je:"je (formes fig\u00e9es)"};
+    const IN_EX = {intonation:"Tu aimes \u00e7a ?", estce:"Est-ce que tu aimes \u00e7a ?",
+        elision:"Est-ce qu'il aime \u00e7a ?", inversion:"Aimes-tu \u00e7a ?",
+        euph:"Aime-t-il \u00e7a ?", je:"Puis-je entrer ?"};
     const NB_LABEL = {"base": "0 – 20", "et_un": "« et un »", "diz": "20 – 69", "sept": "70 – 79", "qv": "80 – 99", "cent": "centaines", "mille": "milliers", "annee": "années", "prix": "prix", "tel": "téléphone"};
     const PC_VERBS = [["aimer", "avoir", "aimé", 0], ["aller", "être", "allé", 0], ["s'amuser", "être", "amusé", 1], ["apprendre", "avoir", "appris", 0], ["attendre", "avoir", "attendu", 0], ["avoir", "avoir", "eu", 0], ["arriver", "être", "arrivé", 0], ["boire", "avoir", "bu", 0], ["choisir", "avoir", "choisi", 0], ["comprendre", "avoir", "compris", 0], ["conduire", "avoir", "conduit", 0], ["connaître", "avoir", "connu", 0], ["construire", "avoir", "construit", 0], ["courir", "avoir", "couru", 0], ["croire", "avoir", "cru", 0], ["demander", "avoir", "demandé", 0], ["descendre", "être", "descendu", 0], ["devenir", "être", "devenu", 0], ["devoir", "avoir", "dû", 0], ["dire", "avoir", "dit", 0], ["disparaître", "avoir", "disparu", 0], ["dormir", "avoir", "dormi", 0], ["écrire", "avoir", "écrit", 0], ["entendre", "avoir", "entendu", 0], ["entrer", "être", "entré", 0], ["envoyer", "avoir", "envoyé", 0], ["éteindre", "avoir", "éteint", 0], ["être", "avoir", "été", 0], ["faire", "avoir", "fait", 0], ["finir", "avoir", "fini", 0], ["goûter", "avoir", "goûté", 0], ["s'habiller", "être", "habillé", 1], ["s'intéresser (à)", "être", "intéressé", 1], ["se lever", "être", "levé", 1], ["lire", "avoir", "lu", 0], ["manger", "avoir", "mangé", 0], ["mettre", "avoir", "mis", 0], ["monter", "être", "monté", 0], ["mourir", "être", "mort", 0], ["naître", "être", "né", 0], ["offrir", "avoir", "offert", 0], ["ouvrir", "avoir", "ouvert", 0], ["parler", "avoir", "parlé", 0], ["partir", "être", "parti", 0], ["peindre", "avoir", "peint", 0], ["plaire", "avoir", "plu", 0], ["pleuvoir", "avoir", "plu", 0], ["pouvoir", "avoir", "pu", 0], ["prendre", "avoir", "pris", 0], ["se promener", "être", "promené", 1], ["recevoir", "avoir", "reçu", 0], ["rendre", "avoir", "rendu", 0], ["répondre", "avoir", "répondu", 0], ["rentrer", "être", "rentré", 0], ["rester", "être", "resté", 0], ["retourner", "être", "retourné", 0], ["revenir", "être", "revenu", 0], ["rire", "avoir", "ri", 0], ["savoir", "avoir", "su", 0], ["sortir", "être", "sorti", 0], ["se souvenir", "être", "souvenu", 1], ["tenir", "avoir", "tenu", 0], ["tomber", "être", "tombé", 0], ["tourner", "avoir", "tourné", 0], ["vendre", "avoir", "vendu", 0], ["venir", "être", "venu", 0], ["vivre", "avoir", "vécu", 0], ["voir", "avoir", "vu", 0], ["voler", "avoir", "volé", 0], ["vouloir", "avoir", "voulu", 0]];
 
@@ -227,7 +233,9 @@
             if(rest.length !== 4) throw new Error("shape");
             const cr = n36(rest[2]);
             const rec = {best:n36(rest[0]), n:n36(rest[1]), c: cr === 0 ? null : cr - 1, miss:{}};
-            const keys = tag === "pc" ? PC_ORDER : NB_ORDER;
+            const ORDERS = {pc: PC_ORDER, nb: NB_ORDER, in: IN_ORDER};
+            const keys = ORDERS[tag];
+            if(!keys) throw new Error("tag");
             if(rest[3].length !== keys.length) throw new Error("length");
             keys.forEach((k,i) => { const v = dq(rest[3][i]); if(v > 0) rec.miss[k] = v; });
             out[tag] = rec;
@@ -264,6 +272,13 @@
                 '<tr><td class="rl">' + esc(NB_LABEL[k] || k) + '</td><td class="n">' + d.nb.miss[k] + '</td></tr>');
             html.push('<section class="report"><div class="rhead"><h2>Les nombres</h2>' +
                 statLine(d.nb) + '</div>' + table(["R&egrave;gle","Rat&eacute;s"], rows) + '</section>');
+        }
+        if(d.in){
+            const rows = Object.keys(d.in.miss).sort((a,b) => d.in.miss[b] - d.in.miss[a]).map(k =>
+                '<tr><td class="rl">' + esc(IN_LABEL[k] || k) + '</td><td class="ex">' + esc(IN_EX[k] || "") +
+                '</td><td class="n">' + d.in.miss[k] + '</td></tr>');
+            html.push('<section class="report"><div class="rhead"><h2>Les interrogatives</h2>' +
+                statLine(d.in) + '</div>' + table(["R&egrave;gle","Exemple","Rat&eacute;s"], rows) + '</section>');
         }
         $out.innerHTML = '<div style="display:flex;flex-direction:column;gap:30px">' + html.join("") + '</div>';
     }

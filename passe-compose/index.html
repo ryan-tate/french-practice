@@ -618,10 +618,13 @@
   const PC_ORDER = ["aimer", "aller", "s'amuser", "apprendre", "attendre", "avoir", "arriver", "boire", "choisir", "comprendre", "conduire", "connaître", "construire", "courir", "croire", "demander", "descendre", "devenir", "devoir", "dire", "disparaître", "dormir", "écrire", "entendre", "entrer", "envoyer", "éteindre", "être", "faire", "finir", "goûter", "s'habiller", "s'intéresser (à)", "se lever", "lire", "manger", "mettre", "monter", "mourir", "naître", "offrir", "ouvrir", "parler", "partir", "peindre", "plaire", "pleuvoir", "pouvoir", "prendre", "se promener", "recevoir", "rendre", "répondre", "rentrer", "rester", "retourner", "revenir", "rire", "savoir", "sortir", "se souvenir", "tenir", "tomber", "tourner", "vendre", "venir", "vivre", "voir", "voler", "vouloir"];
   const NB_ORDER = ["base", "et_un", "diz", "sept", "qv", "cent", "mille", "annee", "prix", "tel"];
   const NB_LABEL = {"base": "0 – 20", "et_un": "« et un »", "diz": "20 – 69", "sept": "70 – 79", "qv": "80 – 99", "cent": "centaines", "mille": "milliers", "annee": "années", "prix": "prix", "tel": "téléphone"};
+  const IN_ORDER = ["intonation","estce","elision","inversion","euph","je"];
+  const IN_LABEL = {intonation:"Intonation ( ? )", estce:"Est-ce que", elision:"Élision (est-ce qu')",
+    inversion:"Inversion", euph:"-t- euphonique", je:"je (formes figées)"};
 
   /* ---------- bilan : export & share ---------- */
   const B32 = "0123456789abcdefghijklmnopqrstuv";
-  const PC_KEY = "pc-drill-v3", NB_KEY = "nb-drill-v1";
+  const PC_KEY = "pc-drill-v3", NB_KEY = "nb-drill-v1", IN_KEY = "in-drill-v1";
   const BILAN_URL = "https://french-practice.com/bilan/";
   function bRead(k){ try{ const r = localStorage.getItem(k); return r ? JSON.parse(r) : null; }catch(e){ return null; } }
   function bQ(v){ return B32[Math.max(0, Math.min(31, Math.round((v||0)*2)))]; }
@@ -643,15 +646,17 @@
   }
   function bPc(){ return bLoad(PC_KEY, PC_ORDER, (s,k) => (((s.stats||{})[k])||{}).miss); }
   function bNb(){ return bLoad(NB_KEY, NB_ORDER, (s,k) => (s.miss||{})[k]); }
+  function bIn(){ return bLoad(IN_KEY, IN_ORDER, (s,k) => (s.miss||{})[k]); }
 
   function bEnc(tag, r, keys){
     return tag + b36(r.best) + "." + b36(r.n) + "." + b36(r.c === null ? 0 : r.c + 1) + "." +
             keys.map(k => bQ(r.miss[k])).join("");
   }
   function bPayload(){
-    const out = [], pc = bPc(), nb = bNb();
+    const out = [], pc = bPc(), nb = bNb(), inn = bIn();
     if(pc) out.push(bEnc("pc", pc, PC_ORDER));
     if(nb) out.push(bEnc("nb", nb, NB_ORDER));
+    if(inn) out.push(bEnc("in", inn, IN_ORDER));
     return out.length ? "1~" + out.join("~") : "";
   }
   function bScore(r){
@@ -660,7 +665,7 @@
             + ", meilleure série " + r.best;
   }
   function bSummary(){
-    const L = ["Bilan — french-practice.com"], pc = bPc(), nb = bNb();
+    const L = ["Bilan — french-practice.com"], pc = bPc(), nb = bNb(), inn = bIn();
     if(pc){
       L.push("", "Passé composé : " + bScore(pc));
       const bad = Object.keys(pc.miss).sort((a,b) => pc.miss[b] - pc.miss[a]).slice(0,12);
@@ -671,6 +676,12 @@
       L.push("", "Les nombres : " + bScore(nb));
       const bad = Object.keys(nb.miss).sort((a,b) => nb.miss[b] - nb.miss[a]);
       L.push(bad.length ? "À revoir : " + bad.map(k => NB_LABEL[k] + " (" + (Math.round(nb.miss[k]*10)/10) + ")").join(", ")
+              : "Rien à revoir.");
+    }
+    if(inn){
+      L.push("", "Les interrogatives : " + bScore(inn));
+      const bad = Object.keys(inn.miss).sort((a,b) => inn.miss[b] - inn.miss[a]);
+      L.push(bad.length ? "À revoir : " + bad.map(k => IN_LABEL[k] + " (" + (Math.round(inn.miss[k]*10)/10) + ")").join(", ")
               : "Rien à revoir.");
     }
     L.push("", "(Chiffres de ce navigateur uniquement.)");
