@@ -1,10 +1,42 @@
-# Passé Composé Drill
+# French Practice
 
-A single-file, self-scoring drill for the 70 past participles on the *Le passé composé ·
-participes passés* reference sheet. No build step, no dependencies, no backend — one
-`index.html` you can open locally or host anywhere static.
+Self-scoring French grammar drills, served at **[french-practice.com](https://french-practice.com)**.
 
-## Exercises
+Every drill is a single self-contained HTML file — no build step, no dependencies, no backend,
+no JavaScript bundle. Open one locally and it works exactly as it does on the site.
+
+## Layout
+
+```
+/
+├── index.html          home page — links to each drill
+├── README.md
+├── passe-compose/
+│   └── index.html      Passé composé · participes passés
+└── nombres/
+    └── index.html      Les nombres
+```
+
+Each drill lives in its own folder as `index.html`, so its URL has no file extension:
+`french-practice.com/passe-compose/`.
+
+## Adding a drill
+
+1. Create a folder named for the drill (`imparfait/`, `subjonctif/`, …).
+2. Put the drill in it as `index.html`.
+3. In the root `index.html`, copy the `<a class="drill">` block, point its `href` at the new
+   folder, and update the title, tags and description. There's a comment marking the spot.
+
+Styles are duplicated in each file rather than shared through a stylesheet. That's deliberate:
+it keeps every drill downloadable and usable offline as a single file. The token block at the
+top of each `<style>` is the same in all of them — copy it into a new drill to inherit the
+palette and both themes.
+
+## Drills
+
+### Passé composé — participes passés
+
+70 verbs, in three exercises:
 
 | Mode | Prompt | You answer |
 |---|---|---|
@@ -13,54 +45,83 @@ participes passés* reference sheet. No build step, no dependencies, no backend 
 | **Forme complète** | `elles ______ (partir)` | the whole conjugated phrase, agreement included |
 | **Mixte** | — | rotates through all three |
 
-**Verb scope:** all 70, colonne 1 only, colonne 2 only, or just the verbs you've missed
-before. Draws are even across the list; anything you get wrong is weighted up and keeps
-resurfacing until you clear it.
+**Scope:** all 70, colonne 1, colonne 2, or only verbs you've missed before. Draws are even
+across the list; anything you get wrong is weighted up and resurfaces until you clear it.
 
-**Negation:** Affirmatif / Négatif / Mélangé, rotating *ne… pas*, *ne… jamais* and
-*ne… plus*. Negatives are only offered in Forme complète, since they need the whole verb
-phrase to be worth practising.
+**Negation:** Affirmatif / Négatif / Mélangé, rotating *ne… pas*, *ne… jamais*, *ne… plus*.
+Negatives are offered only in Forme complète, since they need the whole verb phrase.
 
-## Marking
+**Marking:**
 
-- Accents are graded. `vecu` for `vécu` is marked **presque**, not accepted — in French an
-  accent is a spelling mistake, not a decoration.
-- Where the subject's gender is ambiguous, both agreements pass: `je suis allé` and
-  `je suis allée` are equally correct. `vous` accepts all four forms.
-- Apostrophes, curly quotes, trailing punctuation and extra whitespace are all forgiven.
-- Auxiliary colour-coding runs throughout the interface: **avoir** in blue, **être** in
-  ochre, so the split you have to memorise is always visible.
+- Accents count. `vecu` for `vécu` is marked **presque**, not accepted.
+- Where the subject's gender is ambiguous, both agreements pass — `je suis allé` and
+  `je suis allée` are equally correct; `vous` accepts all four forms.
+- Apostrophes, curly quotes, trailing punctuation and stray whitespace are forgiven.
+- **avoir** is blue and **être** is ochre throughout, so the split stays visible.
+
+Two entries on the source sheet are typos, corrected here: `demander → demandé` and
+`rentrer → rentré`. Note also that **monter, descendre, sortir, rentrer** and **retourner** are
+listed as *être* verbs but take *avoir* when they have a direct object — *il **a** monté les
+escaliers*. The drill says so when those come up.
+
+### Les nombres
+
+Numbers are generated rather than drawn from a fixed list, so the drill never repeats itself.
+Both directions: **chiffres → lettres** (see `96`, write *quatre-vingt-seize*) and
+**lettres → chiffres**.
+
+**Scopes:** `0–100`, `70–99` on its own, `centaines & milliers`, `années`, `prix`,
+`téléphone`.
+
+What's tracked is the **rule**, not the number — miss `96` and the *80–99* rule gets weighted
+up, so the next few questions probe the same soft spot with different figures. The ten rules
+are 0–20, « et un », 20–69, 70–79, 80–99, centaines, milliers, années, prix, téléphone.
+
+**Marking:**
+
+- Hyphens and spaces are treated as equivalent, so both the traditional spelling
+  (*quatre-vingt-dix-sept*, *deux cent un*) and the fully hyphenated post-1990 reform spelling
+  are accepted.
+- Years from 1100–1999 accept either reading: *mille neuf cent quatre-vingt-quatre* or
+  *dix-neuf cent quatre-vingt-quatre*.
+- Prices accept *vingt-quatre euros cinquante* and *…cinquante centimes*.
+- Phone numbers are drilled words→digits only, since the real skill is hearing a number read
+  in pairs and writing it down.
+- The `-s` rules are enforced exactly: *quatre-vingts* but *quatre-vingt-un* and
+  *quatre-vingt mille*; *deux cents* but *deux cent un*; *mille* never pluralised.
+
+Belgian and Swiss *septante / octante / huitante / nonante* are noted in the page footer but
+not drilled.
 
 ## Privacy
 
-Progress is stored in the browser's `localStorage` and never leaves the device. There is no
-server, no analytics, no cookies, and no network request other than the Google Fonts
-stylesheet. Every visitor's history is their own; nobody — including whoever hosts it — can
-see anyone else's. "Effacer mes statistiques" wipes it.
+Progress is kept in the browser's `localStorage` and never leaves the device. No server, no
+analytics, no cookies, no accounts. The only outbound request any page makes is to Google Fonts
+for the stylesheet; offline, the pages fall back to system fonts and still work. Each visitor's
+history is their own, and nobody — including whoever hosts the site — can see anyone else's.
 
-## Running it
+## Deployment
 
-**Locally:** download `index.html` and open it. That's the whole thing.
+GitHub Pages from the `main` branch, root folder, with a custom domain.
 
-**GitHub Pages:** put `index.html` in the repo root, then Settings → Pages → Source:
-*Deploy from a branch*, branch `main`, folder `/ (root)`. The site appears at
-`https://<username>.github.io/<repo>/` within a minute or so.
+DNS for the apex, four `A` records:
 
-**Anywhere else static** — Netlify, Cloudflare Pages, S3, a USB stick — works the same way.
-Keep the filename `index.html` so the bare folder URL serves the drill.
+```
+185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153
+```
 
-Offline the page still works; it falls back to system fonts when Google Fonts is
-unreachable.
+and optionally the matching `AAAA` records (`2606:50c0:800{0,1,2,3}::153`). `www` is a `CNAME`
+to `<username>.github.io`. The `CNAME` file in the repo root is written by GitHub when the
+custom domain is set — don't delete it. Enable **Enforce HTTPS** once the certificate finishes
+provisioning, which can take up to 24 hours after DNS resolves.
 
-## Corrections to the source sheet
+## Credits
 
-Two entries on the original PDF are typos, fixed here:
-
-- `demander → demander` should be **demandé**
-- `rentrer → rentrer` should be **rentré**
-
-Also worth knowing, and noted in the app's feedback: **monter, descendre, sortir, rentrer**
-and **retourner** are listed as *être* verbs, but take *avoir* whenever they have a direct
+Verb list for the passé composé drill from *Le passé composé · participes passés* by
+Marine Vuigner, FLE Nantes.and **retourner** are listed as *être* verbs, but take *avoir* whenever they have a direct
 object — *il **a** monté les escaliers*, *j'**ai** sorti les poubelles*.
 
 ## Credits
